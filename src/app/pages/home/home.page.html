@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="red">
+                <ion-back-button s style="color: antiquewhite;" defaultHref="/tabs/tab1"></ion-back-button>
+            </ion-button>
+        </ion-buttons>
+        <ion-title style="color: antiquewhite;">Sign In</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <div class="box1">
+        <img class="img1" src="assets/1.png" alt="" width="50px" height="50px">
+        <h2 class="h2tag">
+            Foradian Institute of Tecnology of science
+        </h2>
+    </div>
+    <div id=formz>
+
+        <ion-grid>
+            <div class="line-text1">
+                <span class="lines1"></span>
+            </div>
+            <div>
+                <h3>Sign in with username</h3>
+            </div>
+            <div padding>
+                <form class="form">
+                    <ion-item>
+                        <ion-input name="name" [(ngModel)]="loginUserData.username" type="text" placeholder="username" required></ion-input>
+                    </ion-item>
+                    <br>
+                    <ion-item>
+                        <ion-input name="password" [(ngModel)]="loginUserData.password" type="password" placeholder="Password" required></ion-input>
+                    </ion-item>
+
+
+                    <ion-button expand="block" (click)="loginUser() ">LOG IN</ion-button>
+
+
+                </form>
+            </div>
+            <div class="line-text">
+                <span class="lines"></span>
+                <span class="text">OR</span>
+            </div>
+            <p>Sign in with OTP</p>
+
+
+
+
+        </ion-grid>
+
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <p>Trouble signing in? contact your admin</p>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,40 @@
+<ion-app>
+    <ion-menu menuId="main-menu" content-id="main">
+
+        <ion-content>
+
+            <div class="box2">
+                <img class="img2" src="assets/1.png" alt="" width="50px" height="50px">
+                <h2 class="h2tag">
+                    Foradian Institute of Tecnology of science
+                </h2>
+            </div>
+            <div class="listbox">
+                <div style="padding-top: 10px;">
+                    <p class="homecontrol">Home</p>
+                    <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="home"></ion-icon>
+                </div>
+                <div>
+                    <p class="homecontrol">Announcements</p>
+                    <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="trophy"></ion-icon>
+                </div>
+                <div>
+                    <p class="homecontrol">Events</p>
+                    <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="calendar"></ion-icon>
+                </div>
+                <div>
+                    <p class="homecontrol">Switch Language</p>
+                    <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="language-outline"></ion-icon>
+                </div>
+                <div>
+                    <p class="homecontrol">Notification Settings</p>
+                    <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="Notifications-outline"></ion-icon>
+                </div>
+                <ion-button (click)="logout()">LOG OUT</ion-button>
+
+
+            </div>
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

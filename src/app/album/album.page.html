@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="red">
+                <ion-back-button s style="color: antiquewhite;" defaultHref="/information"></ion-back-button>
+            </ion-button>
+        </ion-buttons>
+        <ion-title style="color: antiquewhite; font-weight: 500;">Album</ion-title>
+
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="gray-content">
+
+    <ion-grid class="image-items">
+        <ion-row>
+            <ion-col size="3" class="image-col" *ngFor="let image of images; let i = index">
+                <div (click)="openPhoto(i)">
+                    <!-- <img [src]="image.photo_url" /> -->
+                    <img [src]="image.photoUrl" onerror="this.src='assets/2.jpg'" alt="alternative" />
+                </div>
+                <!-- <img [src]="image.photoUrl" style="display:none;" />
+                <div class="image-container" (click)="openPhoto(i)">
+                    <img [hidden]="image.isLoaded" src="assets/img/background.png" />
+                    <img [hidden]="!image.isLoaded" (load)="onload(i);" [src]="image.photo_Url" />
+                </div> -->
+                <!-- <h3>{{album_name}}</h3> -->
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+</ion-content>

@@ -1,0 +1,51 @@
+ion-toolbar {
+    --background: rgba(244, 67, 53, 255);
+}
+
+ion-content {
+    --background: rgba(238, 238, 238, 255);
+}
+
+.table tr.active td {
+    background-color: #e64c1d !important;
+    color: rgb(226, 40, 40);
+}
+
+ion-card {
+    ion-card-header {
+        display: block;
+        white-space: normal;
+        font-size: 16px;
+        padding: 16px;
+        color: black;
+        font-weight: 600;
+        position: relative;
+        left: 6px;
+    }
+    ion-card-content {
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: 500;
+        color: black;
+        padding-bottom: 0;
+        position: relative;
+        left: 5px;
+    }
+    ion-note {
+        display: block;
+        line-height: 40px;
+        font-size: 14px;
+        position: relative;
+        left: 16px;
+    }
+}
+
+.selected {
+    background: var(--color-black-soft);
+    ion-card-header {
+        color: gray !important;
+    }
+    ion-card-content {
+        color: gray !important;
+    }
+}

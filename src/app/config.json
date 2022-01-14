@@ -1,0 +1,29 @@
+{
+    "production": "false",
+    "school_name": "FIT",
+    "app_name": "Fedena Connect",
+    "package_name": "com.fedena.fit",
+    "api_url": "http://fconnect.t.foradian.org/",
+    "school_identity": "CeDwAKo49aSr9tYu87HMurJL",
+    "primary_colour": "#C62828",
+    "secondary_colour": "#C24587",
+    "status_bar_colour": "#9F2020",
+    "sender_id": "573469904178",
+    "school_logo": "assets/img/logo.png",
+    "school_cover": "assets/img/cover.jpg",
+    "school_logo_css": "url('../assets/img/logo.png') no-repeat transparent",
+    "school_cover_css": "url('../assets/img/cover.jpg') no-repeat transparent",
+    "powered_by_logo": "assets/img/company.png",
+    "powered_by_url": "https://www.fedena.com/",
+    "platform": "android",
+    "build": true,
+    "demo_mode": false,
+    "multi_school_mode": false,
+    "inapp_language_switching": true,
+    "language_selector_config": {
+        "default_languages": [
+            { "name": "English", "code": "en" },
+            { "name": "Arabic", "code": "ar" }
+        ]
+    }
+}

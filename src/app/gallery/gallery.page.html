@@ -1,0 +1,46 @@
+<ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-button color="red">
+            <ion-back-button s style="color: antiquewhite;" defaultHref="/information"></ion-back-button>
+        </ion-button>
+    </ion-buttons>
+    <ion-title style="color: antiquewhite;">Gallery</ion-title>
+</ion-toolbar>
+
+
+<ion-content class="gray-content">
+    <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed">
+        <ion-refresher-content refreshingSpinner="circles" refreshingText="Refresh albums...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-grid class="pad-16">
+        <ion-row>
+            <ion-col size="6" class="image-col" *ngFor="let album of albums; let i = index" (click)="clickedRow(album,i)">
+                <div class="image-container col-12">
+                    <!-- <img [hidden]="album.isLoaded" src="{{album.last_image}}" /> -->
+                    <!-- <img [hidden]="!album.isLoaded" src="{{album.last_image}}" /> -->
+                    <!-- <img [hidden]="!album.isLoaded" src="assets/2.jpg" /> -->
+
+                    <!-- <img [hidden]="album.isLoaded" src="assets/2.jpg" /> -->
+                    <!-- <img [hidden]="!album.isLoaded" [src]="{{album.last_image}}" /> -->
+
+                    <img [hidden]="album.isLoaded" src="{{album.lastImage}}" onerror="this.src='assets/2.jpg'" alt="alternative" />
+
+
+                </div>
+                <div class="text-container" [hidden]="album.isLoaded">
+                    <h3 class="image-heading">{{album.name}}</h3>
+                    <p>{{album.totalPhotos}} photos</p>
+
+                </div>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-infinite-scroll (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

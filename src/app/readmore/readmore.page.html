@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="red">
+                <ion-back-button s style="color: antiquewhite;" defaultHref="/details"></ion-back-button>
+            </ion-button>
+        </ion-buttons>
+        <!-- <ion-title style="color: antiquewhite;">Read More</ion-title> -->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngFor="let news of full_detail ">
+    <div class="top-title">
+        <h2> {{news.title}}</h2>
+        <p>{{news.created_at | date: 'MMM d, y, h:m a'}} </p>
+    </div>
+    <div class="static-box">
+    </div>
+    <div class="textarea">
+        <div class="innerbox">
+            <ion-textarea placeholder="Please enter your comments.."></ion-textarea>
+        </div>
+    </div>
+
+    <div class="comments">
+        <p>Comments <span id="totalComments">{{totalComments}}</span></p>
+    </div>
+
+    <ion-list>
+
+    </ion-list>
+
+
+</ion-content>

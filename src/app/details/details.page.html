@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="red">
+                <ion-back-button s style="color: antiquewhite;" defaultHref="/information"></ion-back-button>
+            </ion-button>
+        </ion-buttons>
+        <ion-title style="color: antiquewhite;">Announcements</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+
+
+    <div class="announcement-wrap">
+        <ion-card *ngFor="let announcement of announcement ; let i=index" (click)="clickedRow(announcement,i)" [ngClass]="announcement.isHighlighted == true ? 'selected' : 'unselected'">
+            <ion-card-header>
+                {{announcement.title}}
+            </ion-card-header>
+            <ion-card-content [innerHTML]="strip(announcement.content)" class="longText"> </ion-card-content>
+            <ion-row>
+                <ion-col>
+                    <ion-note>
+                        {{announcement.createdAt | date: 'M'}} months ago
+                    </ion-note>
+                </ion-col>
+                <ion-col style="text-align: end;">
+                    <ion-button fill="clear" style="color: red;" (click)="readMore(i)">
+                        read more
+                        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </div>
+
+    <!-- 
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+
+
+    </ion-infinite-scroll> -->
+
+    <ion-infinite-scroll (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

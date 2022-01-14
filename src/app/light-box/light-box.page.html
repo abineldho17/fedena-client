@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="red">
+                <ion-back-button s style="color: antiquewhite;" defaultHref="/information"></ion-back-button>
+            </ion-button>
+        </ion-buttons>
+
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="gray-content" color="dark">
+    <ion-slides pager="true">
+        <ion-slide *ngFor="let image of images">
+            <!-- <img [src]="image.photo_url" /> -->
+            <img [src]="image.photoUrl" onerror="this.src='assets/2.jpg'" alt="alternative" />
+        </ion-slide>
+    </ion-slides>
+</ion-content>

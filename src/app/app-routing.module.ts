@@ -39,6 +39,11 @@ const routes: Routes = [
     path: 'light-box',
     loadChildren: () => import('./light-box/light-box.module').then( m => m.LightBoxPageModule)
   },
+  {
+    path: 'password',
+    loadChildren: () => import('./password/password.module').then( m => m.PasswordPageModule)
+  },
+ 
   
 ];
 

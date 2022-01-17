@@ -54,11 +54,6 @@ export class DetailsPage implements OnInit {
        
         if (res.news && res.news != null) {
 
-
-
-
-          
-
             res.news.forEach(i => {
               this.announcement.push(new AnnouncementModel(i));
             });

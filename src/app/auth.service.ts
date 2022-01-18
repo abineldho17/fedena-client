@@ -18,6 +18,7 @@ export class AuthService {
   loginUser(user) {
     // let payloadParam = "&username="+user.username+"&password="+user.password;
     const dp = "&username=" + user.username + "&password=" + user.password;
+    window.localStorage.setItem("oldpassword", user.password);
     let header = {
       //Authorization: 'Bearer token=joKaxuoX3B57QntfYeW2Kss8;student_id=809',
       // 'Content-Type': 'application/json',

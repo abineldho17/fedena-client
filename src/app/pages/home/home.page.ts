@@ -23,9 +23,26 @@ loginUser(){
   this._auth.loginUser(this.loginUserData)
   .subscribe(
     res => {
+      // res.token.password_reset_required = true;
+      
+      //   this.route.navigate(['/password']);
+      
+      // console.log(res.token.password_reset_required);
       window.localStorage.setItem("access_token", res.token.access_token);
-      console.log(res.token.access_token)
-      this.route.navigate(['/information']);
+      // console.log(res.token.access_token)
+
+      res.token.password_reset_required = true;
+      
+      if( res.token.password_reset_required = true)
+      {
+
+     return this.route.navigate(['/password']);
+    
+      }
+else{
+
+      return this.route.navigate(['/information']);
+}
     },
 
     err => console.log(err)

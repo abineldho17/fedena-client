@@ -65,25 +65,8 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
        duration: 2000
     });
     return this.loading.present();
-    // const { role, data } = await loading.onDidDismiss();
-
-    // console.log('Loading dismissed!');
-
+   
   }
-
-
-  // async presentAlert() {
-  //   const alert = await this.alertController.create({
-  //     cssClass: 'my-custom-class',
-  //     header: 'Alert',
-  //     message: 'Current Password is wrong',
-  //     buttons: ['OK']
-  //   });
-
-  //   await alert.present();
-
-    
-  // }
 
 
   reset() {
@@ -91,16 +74,7 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
     this.passwordService.reset(this.login).subscribe(
    
       (res: any) => {
-                 
-// // console.log(res.description);
-
-//         window.localStorage.setItem("access_token", res.token.access_token);
-//         this.route.navigate(['/information']);
-             
-// // console.log(res.description);
-//         return this.presentLoading();
-
-
+  
 
 
 
@@ -125,7 +99,6 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
       },
       
        error => {
-        // return this.presentAlert() ;
        
         
       })
@@ -144,102 +117,19 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
      
       return this.presentToast('Current password and new password must not be same');
     }
-    // else if (this.login.old_password == window.localStorage.getItem("oldpassword")) {
-    //   // return this.presentAlert() ;
-    //   return this.reset();
-    // } 
+    
     else {
      
       return this.reset();
-      // return this.presentAlert() ;
+      
       
     }
   }
 
 
 
-
-
-  //  const dp1 = this.login.currentpassword;
-
-  //  const dp2 = this.login.newpassword;
-
-
-
-  //     if(dp1==dp2){
-  //       const loading = await this.loadingController.create({
-  //         message: 'Please wait...',
-  //         duration: 2000
-  //       });
-  //       await loading.present();
-
-
-  //     }
-  //     else{
-
-  // console.log("clikkk");
-  //       const toast = await this.toastController.create({
-  //         message: 'current password and new password must be same',
-  //         duration: 2000
-  //       });
-  //       toast.present();
-  //     }
-
-
-
-
-
-
-  //    async presentToast() {
-
-  //    const dp1 = this.login.currentpassword;
-  //    console.log(dp1);
-
-  //    const dp2 = this.login.newpassword;
-  //    console.log(dp2);
-
-
-
-  //     if(dp1==dp2){
-  //       const loading = await this.loadingController.create({
-  //         message: 'Please wait...',
-  //         duration: 2000
-  //       });
-  //       await loading.present();
-
-
-  //     }
-  //     else{
-
-  // console.log("clikkk");
-  //       const toast = await this.toastController.create({
-  //         message: 'current password and new password must be same',
-  //         duration: 2000
-  //       });
-  //       toast.present();
-  //     }
-
-
-
-  // const toast = await this.toastController.create({
-  //   message: 'current password and new password must be same',
-  //   duration: 2000
-  // });
-  // toast.present();
 }
 
-  // verifypassword(){
-  //   var currentpassword = document.getElementById("currentpassword");
-  //   var newpassword = document.getElementById("newpassword");
-
-  // }
-
-
-  // password(ngForm: NgModel) {
-  //   const currentpassword  = document.getElementById('currentpassword');
-  //   const { value: newpassword } = formGroup.get('newpassword');
-  //   return currentpassword === newpassword ? null : { passwordNotMatch: true };
-  // }
 
 
 

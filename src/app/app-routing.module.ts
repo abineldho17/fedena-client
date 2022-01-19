@@ -13,35 +13,37 @@ const routes: Routes = [
   },
   {
     path: 'information',
-    loadChildren: () => import('./information/information.module').then( m => m.InformationPageModule)
+    loadChildren: () => import('./pages/information/information.module').then( m => m.InformationPageModule)
   },
   {
     path: 'details',
-    loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
+    loadChildren: () => import('./pages/details/details.module').then( m => m.DetailsPageModule)
   },
   {
     path: 'readmore',
-    loadChildren: () => import('./readmore/readmore.module').then( m => m.ReadmorePageModule)
+    loadChildren: () => import('./pages/readmore/readmore.module').then( m => m.ReadmorePageModule)
   },
   {
     path: 'attendance',
-    loadChildren: () => import('./attendance/attendance.module').then( m => m.AttendancePageModule)
+    loadChildren: () => import('./pages/attendance/attendance.module').then( m => m.AttendancePageModule)
   },
   {
     path: 'gallery',
-    loadChildren: () => import('./gallery/gallery.module').then( m => m.GalleryPageModule)
+    loadChildren: () => import('./pages/gallery/gallery.module').then( m => m.GalleryPageModule)
   },
+
+
   {
     path: 'album',
-    loadChildren: () => import('./album/album.module').then( m => m.AlbumPageModule)
+    loadChildren: () => import('./pages/album/album.module').then( m => m.AlbumPageModule)
   },
   {
     path: 'light-box',
-    loadChildren: () => import('./light-box/light-box.module').then( m => m.LightBoxPageModule)
+    loadChildren: () => import('./pages/light-box/light-box.module').then( m => m.LightBoxPageModule)
   },
   {
     path: 'password',
-    loadChildren: () => import('./password/password.module').then( m => m.PasswordPageModule)
+    loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
   },
  
   

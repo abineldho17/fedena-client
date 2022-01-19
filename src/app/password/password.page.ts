@@ -25,6 +25,7 @@ export class PasswordPage implements OnInit {
   loginUserData = {
   
   };
+  loading: any;
 
   constructor(public toastController: ToastController, private route: Router, public loadingController: LoadingController,private passwordService: Password,public alertController: AlertController) { }
 
@@ -49,9 +50,9 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
 
 
 
-  async presentToast() {
+  async presentToast(message : string) {
     const toast = await this.toastController.create({
-      message: 'current password and new password must not be same',
+      message,
       duration: 2000
     });
     toast.present();
@@ -59,40 +60,70 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
 
 
   async presentLoading() {
-    const loading = await this.loadingController.create({
+    this.loading = await this.loadingController.create({
       message: 'please wait',
-      duration: 2000
+       duration: 2000
     });
-    await loading.present();
+    return this.loading.present();
+    // const { role, data } = await loading.onDidDismiss();
 
+    // console.log('Loading dismissed!');
 
   }
 
 
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Alert',
-      message: 'Current Password is wrong',
-      buttons: ['OK']
-    });
+  // async presentAlert() {
+  //   const alert = await this.alertController.create({
+  //     cssClass: 'my-custom-class',
+  //     header: 'Alert',
+  //     message: 'Current Password is wrong',
+  //     buttons: ['OK']
+  //   });
 
-    await alert.present();
+  //   await alert.present();
 
     
-  }
+  // }
 
 
   reset() {
+      this.presentLoading();
     this.passwordService.reset(this.login).subscribe(
    
       (res: any) => {
-        window.localStorage.setItem("access_token", res.token.access_token);
-        this.route.navigate(['/information']);
-        return this.presentLoading();
+                 
+// // console.log(res.description);
+
+//         window.localStorage.setItem("access_token", res.token.access_token);
+//         this.route.navigate(['/information']);
+             
+// // console.log(res.description);
+//         return this.presentLoading();
+
+
+
+
+
+        if(res.description != 'invalid_username_or_password'){
+          this.loading.dismiss();
+          this.presentToast('Password Reset');
+          window.localStorage.setItem("access_token", res.token.access_token);
+          
+          this.route.navigate(['/information']);
         
 
+          
+          
+
+        }
+        else{
+          this.loading.dismiss();
+          this.presentToast('Current password is wrong');
+          
+        }
+   
       },
+      
        error => {
         // return this.presentAlert() ;
        
@@ -111,16 +142,16 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
     const dp2 = this.login.new_password;
     if (dp1 == dp2) {
      
-      return this.presentToast();
+      return this.presentToast('Current password and new password must not be same');
     }
-    else if (this.login.old_password == window.localStorage.getItem("oldpassword")) {
-      // return this.presentAlert() ;
-      return this.reset();
-    } 
+    // else if (this.login.old_password == window.localStorage.getItem("oldpassword")) {
+    //   // return this.presentAlert() ;
+    //   return this.reset();
+    // } 
     else {
      
-      // return this.reset();
-      return this.presentAlert() ;
+      return this.reset();
+      // return this.presentAlert() ;
       
     }
   }

@@ -33,7 +33,7 @@ loginUser(){
 
       res.token.password_reset_required = true;
       
-      if( res.token.password_reset_required = true)
+      if( res.token.password_reset_required == true)
       {
 
      return this.route.navigate(['/password']);

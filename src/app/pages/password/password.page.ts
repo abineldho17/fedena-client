@@ -64,9 +64,10 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
   }
 
 
-  async presentLoading() {
+  async presentLoading(message : string) {
     this.loading = await this.loadingController.create({
-      message: 'please wait',
+      
+      message,
        duration: 2000
     });
     return this.loading.present();
@@ -75,7 +76,13 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
 
 
   reset() {
-      this.presentLoading();
+    if (window.localStorage.getItem('language')== 'en'){
+      this.presentLoading('Please wait');
+    }
+    else{
+      this.presentLoading('أرجو الإنتظار');
+    }
+      
     this.passwordService.reset(this.login).subscribe(
    
       (res: any) => {
@@ -83,21 +90,31 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
 
         if(res.description != 'invalid_username_or_password'){
           this.loading.dismiss();
-          this.presentToast('Password Reset');
-
-          
+          // this.presentToast('Password Reset');
+          if (window.localStorage.getItem('language')== 'en'){
+            this.presentToast('Password Reset');
+          }
+          else{
+            this.presentToast('إعادة تعيين كلمة المرور');
+          }
           window.localStorage.setItem("access_token", res.token.access_token);
           
           this.route.navigate(['/information']);
         
-
+          
           
           
 
         }
         else{
           this.loading.dismiss();
-          this.presentToast('Current password is wrong');
+          // this.presentToast('Current password is wrong');
+          if (window.localStorage.getItem('language')== 'en'){
+            this.presentToast('Current password is wrong');
+          }
+          else{
+            this.presentToast('كلمة المرور الحالية خاطئةر');
+          }
           
         }
    

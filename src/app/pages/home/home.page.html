@@ -1,20 +1,42 @@
 <ion-header>
     <ion-toolbar>
+        <ion-icon style="position: relative; float: right; font-size: 32px; right: 4px;color: antiquewhite;" name="language-outline" (click)="presentAlertRadio()">
+
+
+        </ion-icon>
         <ion-buttons slot="start">
+
             <ion-button color="red">
                 <ion-back-button s style="color: antiquewhite;" defaultHref="/tabs/tab1"></ion-back-button>
             </ion-button>
         </ion-buttons>
-        <ion-title style="color: antiquewhite;">Sign In</ion-title>
+        <ion-title style="color: antiquewhite; position: relative;top: 7px;">{{ 'HOME.title' | translate:params }}</ion-title>
+
     </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
+    <!-- 
+    <div>
+        <ion-list>
+            <ion-item id="trial" style="display: none;">
+
+                <ion-select placeholder="Select One" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+                    <ion-select-option value="en">English</ion-select-option>
+                    <ion-select-option value="ar">Arabic</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+    </div> -->
+
+
+
+
     <div class="box1">
         <img class="img1" src="assets/1.png" alt="" width="50px" height="50px">
         <h2 class="h2tag">
-            Foradian Institute of Tecnology of science
+            {{ 'HOME.foradian' | translate:params }}
         </h2>
     </div>
     <div id=formz>
@@ -24,20 +46,26 @@
                 <span class="lines1"></span>
             </div>
             <div>
-                <h3>Sign in with username</h3>
+                <h3>
+                    {{ 'HOME.text' | translate:params }}
+
+                </h3>
             </div>
             <div padding>
                 <form class="form">
                     <ion-item>
-                        <ion-input name="name" [(ngModel)]="loginUserData.username" type="text" placeholder="username" required></ion-input>
+                        <ion-input name="name" [(ngModel)]="loginUserData.username" type="text" placeholder="{{ 'HOME.username' | translate:params }}
+                        " required></ion-input>
                     </ion-item>
                     <br>
                     <ion-item>
-                        <ion-input name="password" [(ngModel)]="loginUserData.password" type="password" placeholder="Password" required></ion-input>
+                        <ion-input name="password" [(ngModel)]="loginUserData.password" type="password" placeholder="{{ 'HOME.password' | translate:params }}
+" required></ion-input>
                     </ion-item>
 
 
-                    <ion-button expand="block" (click)="loginUser() ">LOG IN</ion-button>
+                    <ion-button expand="block" (click)="loginUser() ">{{ 'HOME.login' | translate:params }}
+                    </ion-button>
 
 
                 </form>
@@ -46,9 +74,8 @@
                 <span class="lines"></span>
                 <span class="text">OR</span>
             </div>
-            <p>Sign in with OTP</p>
-
-
+            <p>{{ 'HOME.otp' | translate:params }}
+            </p>
 
 
         </ion-grid>
@@ -57,6 +84,6 @@
 </ion-content>
 <ion-footer>
     <ion-toolbar>
-        <p>Trouble signing in? contact your admin</p>
+        <p>{{ 'HOME.trouble_signing_in' | translate:params }}</p>
     </ion-toolbar>
 </ion-footer>

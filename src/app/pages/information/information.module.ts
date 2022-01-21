@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { InformationPageRoutingModule } from './information-routing.module';
 
 import { InformationPage } from './information.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
+    TranslateModule,
     CommonModule,
     FormsModule,
     IonicModule,

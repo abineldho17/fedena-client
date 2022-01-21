@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'password',
     loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
   },
+  {
+    path: 'modal',
+    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
+  },
  
   
 ];

@@ -6,36 +6,41 @@
             <div class="box2">
                 <img class="img2" src="assets/1.png" alt="" width="50px" height="50px">
                 <h2 class="h2tag">
-                    Foradian Institute of Tecnology of science
+                    {{ 'HOME.foradian' | translate:params }}
                 </h2>
             </div>
             <div class="listbox">
                 <div style="padding-top: 10px;">
-                    <p class="homecontrol">Home</p>
+                    <p class="homecontrol">{{ 'HOME.home' | translate:params }}</p>
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="home"></ion-icon>
                 </div>
                 <div>
-                    <p class="homecontrol">Announcements</p>
+                    <p class="homecontrol">{{ 'HOME.announcements' | translate:params }}</p>
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="trophy"></ion-icon>
                 </div>
                 <div>
-                    <p class="homecontrol">Events</p>
+                    <p class="homecontrol">{{ 'HOME.events' | translate:params }}</p>
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="calendar"></ion-icon>
                 </div>
                 <div>
-                    <p class="homecontrol">Switch Language</p>
+                    <p class="homecontrol">{{ 'HOME.switch_language' | translate:params }}</p>
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="language-outline"></ion-icon>
                 </div>
                 <div>
-                    <p class="homecontrol">Notification Settings</p>
+                    <p class="homecontrol">{{ 'HOME.loading_notifications' | translate:params }}</p>
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="Notifications-outline"></ion-icon>
                 </div>
                 <div (click)="changepassword()">
-                    <p class="homecontrol">Change Password</p>
+                    <p class="homecontrol">{{ 'HOME.change_password' | translate:params }}</p>
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="key-outline"></ion-icon>
 
                 </div>
-                <ion-button style="position: relative; left: 100px;" (click)="logout()">LOG OUT</ion-button>
+                <div (click)="presentAlertRadio()">
+                    <p class="homecontrol">{{ 'HOME.change_language' | translate:params }}</p>
+                    <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="language-outline"></ion-icon>
+
+                </div>
+                <ion-button style="position: relative; left: 100px;" (click)="logout()">{{ 'HOME.logout' | translate:params }}</ion-button>
 
 
             </div>

@@ -7,9 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { AttendancePageRoutingModule } from './attendance-routing.module';
 
 import { AttendancePage } from './attendance.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
+  imports: [TranslateModule,
     CommonModule,
     FormsModule,
     IonicModule,

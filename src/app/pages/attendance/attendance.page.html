@@ -5,7 +5,7 @@
                 <ion-back-button s style="color: antiquewhite;" defaultHref="/information"></ion-back-button>
             </ion-button>
         </ion-buttons>
-        <ion-title style="color: antiquewhite; font-weight: 500;">Attendance</ion-title>
+        <ion-title style="color: antiquewhite; font-weight: 500;">{{ 'HOME.attendance' | translate:params }}</ion-title>
         <ion-title slot="end" style="color: antiquewhite;">
             <p>NOTIFICATION STATUS</p>
         </ion-title>
@@ -21,7 +21,7 @@
 
 
         <div class="label">
-            <ion-label class="ion-padding">Course</ion-label>
+            <ion-label class="ion-padding">{{ 'HOME.course' | translate:params }}</ion-label>
         </div>
         <div class="select" (click)="getCourse()">
 
@@ -34,7 +34,7 @@
         </div>
 
         <div class="label">
-            <ion-label class="ion-padding">Batch</ion-label>
+            <ion-label class="ion-padding">{{ 'HOME.batch' | translate:params }}</ion-label>
         </div>
         <div class="select">
 
@@ -47,7 +47,7 @@
         </div>
 
         <div class="label">
-            <ion-label class="ion-padding">Subject</ion-label>
+            <ion-label class="ion-padding">{{ 'HOME.subject' | translate:params }}</ion-label>
         </div>
 
         <div class="select" (click)="getSubjects()">

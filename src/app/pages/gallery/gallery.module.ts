@@ -7,9 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { GalleryPageRoutingModule } from './gallery-routing.module';
 
 import { GalleryPage } from './gallery.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
+  imports: [TranslateModule,
     CommonModule,
     FormsModule,
     IonicModule,

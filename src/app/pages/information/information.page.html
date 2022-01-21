@@ -7,13 +7,16 @@
         </ion-buttons>
 
 
-        <ion-title style="color: antiquewhite;">Dashboard</ion-title>
+        <ion-title style="color: antiquewhite;">{{ 'HOME.dashboard' | translate:params }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
-
-
-
+<!-- 
+"announcements": "Announcements",
+"attendance": "Attendance",
+"gallery": "Gallery",
+"dashboard": "Dashboard"
+ -->
 
 <ion-content>
     <div class="blocks">
@@ -22,21 +25,21 @@
         <ion-card (click)="announcement()">
             <ion-item>
                 <ion-icon style="color: rgb(107, 197, 107);" name="call"></ion-icon>
-                <ion-label style="padding-left: 20px;">Announcements</ion-label>
+                <ion-label style="padding-left: 20px;">{{ 'HOME.announcements' | translate:params }}</ion-label>
                 <ion-icon style="color: gray; font-size: 22px;" name="chevron-forward-outline"></ion-icon>
             </ion-item>
         </ion-card>
         <ion-card (click)="attendance()">
             <ion-item>
                 <ion-icon style="color: rgb(177, 51, 20);" name="checkbox-outline"></ion-icon>
-                <ion-label style="padding-left: 20px;">Attendance</ion-label>
+                <ion-label style="padding-left: 20px;">{{ 'HOME.attendance' | translate:params }}</ion-label>
                 <ion-icon style="color: gray; font-size: 22px;" name="chevron-forward-outline"></ion-icon>
             </ion-item>
         </ion-card>
         <ion-card (click)="gallery()">
             <ion-item>
                 <ion-icon name="images-outline"></ion-icon>
-                <ion-label style="padding-left: 20px;">gallery</ion-label>
+                <ion-label style="padding-left: 20px;">{{ 'HOME.gallery' | translate:params }}</ion-label>
                 <ion-icon style="color: gray; font-size: 22px;" name="chevron-forward-outline"></ion-icon>
             </ion-item>
         </ion-card>

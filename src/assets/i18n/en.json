@@ -1,0 +1,34 @@
+{
+    "HOME": {
+        "title": "SIGN IN",
+        "text": "Sign in with Username",
+        "otp": "Sign in with otp",
+        "username": "Username",
+        "password": "Password",
+        "login": "LOG IN",
+        "ok": "OK",
+        "cancel": "CANCEL",
+        "change_password": "Change password",
+        "current_password": "current password",
+        "new_password": "New password",
+        "announcements": "Announcements",
+        "attendance": "Attendance",
+        "gallery": "Gallery",
+        "dashboard": "Dashboard",
+        "trouble_signing_in": "Trouble Signing In ? conatct your admin",
+        "events": "Events",
+        "home": "Home",
+        "logout": "LOG OUT",
+        "switch_language": "Switch language",
+        "loading_notifications": "Notification settings",
+        "foradian": "Foradian Institute of Technology and science",
+        "course": "Course",
+        "batch": "Batch",
+        "subject": "Subject",
+        "change_language": "Change language",
+        "toast1": "Current password and new password must not be same",
+        "toast2": "",
+        "toast3": ""
+
+    }
+}

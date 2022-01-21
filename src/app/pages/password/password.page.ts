@@ -3,6 +3,8 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateConfigService } from 'src/app/translate-config.service';
 import { Password } from 'src/providers/password';
 // import { AuthService } from '../auth.service';
 
@@ -26,8 +28,11 @@ export class PasswordPage implements OnInit {
   
   };
   loading: any;
+  selectedLanguage: string;
 
-  constructor(public toastController: ToastController, private route: Router, public loadingController: LoadingController,private passwordService: Password,public alertController: AlertController) { }
+  constructor(public toastController: ToastController, private route: Router, public loadingController: LoadingController,private passwordService: Password,public alertController: AlertController,private translateConfigService: TranslateConfigService, private translate: TranslateService) { 
+    this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
+  }
 
   ngOnInit() {
     
@@ -76,11 +81,11 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
       (res: any) => {
   
 
-
-
         if(res.description != 'invalid_username_or_password'){
           this.loading.dismiss();
           this.presentToast('Password Reset');
+
+          
           window.localStorage.setItem("access_token", res.token.access_token);
           
           this.route.navigate(['/information']);

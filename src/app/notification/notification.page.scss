@@ -1,0 +1,146 @@
+ion-toolbar {
+    --background: rgba(244, 67, 53, 255);
+}
+
+ion-toggle {
+    --background: red;
+    --background-checked: rgb(241, 149, 149);
+    --handle-background-checked: red;
+}
+
+.div {
+    width: 80%;
+    height: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.one {
+    width: 80%;
+}
+
+.two {
+    position: relative;
+    bottom: 69px;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(244, 244, 244, 255);
+    p {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 10px;
+    }
+}
+
+.box1 {
+    h3 {
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+        color: #545353;
+    }
+}
+
+.three {
+    position: relative;
+    bottom: 68px;
+    p {
+        position: relative;
+        left: 11px;
+        color: rgba(85, 85, 85, 255);
+    }
+}
+
+.para2 {
+    position: relative;
+    bottom: 45px;
+    left: 264px;
+}
+
+.toggle1 {
+    position: relative;
+    left: 265px;
+    top: -42px;
+}
+
+.para1 {
+    display: block;
+    width: 87%;
+    position: relative;
+    bottom: 64px;
+    line-height: 20px;
+    color: rgba(128, 128, 128, 255);
+}
+
+.mainDiv {
+    position: relative;
+    bottom: 66px;
+    padding-left: 11px;
+}
+
+#line1 {
+    position: relative;
+    bottom: 148px;
+    left: 253px;
+}
+
+#line2 {
+    position: relative;
+    bottom: 148px;
+    left: 253px;
+}
+
+#line3 {
+    position: relative;
+    bottom: 148px;
+    left: 253px;
+}
+
+#line4 {
+    position: relative;
+    bottom: 148px;
+    left: 253px;
+}
+
+.line2 {
+    position: relative;
+    top: 8px;
+}
+
+.line3 {
+    position: relative;
+    top: 20px;
+}
+
+.line4 {
+    position: relative;
+    top: 30px;
+}
+
+.para3 {
+    position: relative;
+    bottom: 69px;
+    left: 10px;
+    font-style: italic;
+    font-size: 15px;
+    p {
+        color: green;
+    }
+}
+
+.time {
+    position: relative;
+    bottom: 100px;
+}
+
+.line6 {
+    position: relative;
+    left: 185px;
+}
+
+.line7 {
+    position: relative;
+    left: 190px;
+}

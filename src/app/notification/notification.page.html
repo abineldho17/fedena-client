@@ -1,0 +1,78 @@
+<ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-button color="red">
+            <ion-back-button style="color: antiquewhite;" defaultHref="/information"></ion-back-button>
+        </ion-button>
+    </ion-buttons>
+    <ion-title style="color: antiquewhite; font-weight: 500;">Notification Settings</ion-title>
+    <p slot="end" style="color: antiquewhite; font-size: 16px; position: relative; right: 10px; ">UPDATE</p>
+</ion-toolbar>
+
+
+<ion-content>
+
+    <div class="div">
+
+        <div class="box1">
+            <h3>Push Notification</h3>
+            <div class="toggle1">
+                <ion-toggle slot="end"></ion-toggle>
+            </div>
+            <p class="para1">Get instant Notification and be informed about what happening in the school. You can turn them off anytime
+            </p>
+        </div>
+        <div class="two">
+            <p>Do not disturb</p>
+        </div>
+
+        <div class="three">
+            <p>Set Time</p>
+            <div class="para2">
+                <ion-toggle></ion-toggle>
+            </div>
+
+        </div>
+        <div class="time" (click)="presentAlertPrompt()">
+            <ion-item>
+                <p>Start Time</p>
+                <p class="line6">{{startTime}}</p>
+            </ion-item>
+            <ion-item>
+                <p>End Time</p>
+                <p class="line7">{{endTime}}</p>
+            </ion-item>
+        </div>
+        <div class="para3" id="hidden" style="display: none;">
+            <p>Notification will be turned off from {{startTime}} to {{endTime}}</p>
+        </div>
+        <div class="two">
+            <p style="position: relative;top: 50%; transform: translateY(-50%); left: 10px;">Set command for different features</p>
+        </div>
+
+
+        <div class="mainDiv">
+            <p class="line1">Assignment Response</p>
+            <p class="line2">Examination/Gradebook scheduled</p>
+            <p class="line3">Fee Scheduled </p>
+            <p class="line4">Gallery Published</p>
+
+
+            <div id="line1">
+                <ion-toggle></ion-toggle>
+            </div>
+
+            <div id="line2">
+                <ion-toggle></ion-toggle>
+            </div>
+
+            <div id="line3">
+                <ion-toggle></ion-toggle>
+            </div>
+            <div id="line4">
+                <ion-toggle></ion-toggle>
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>

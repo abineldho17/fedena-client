@@ -27,7 +27,7 @@
         "subject": "Subject",
         "change_language": "Change language",
         "toast1": "Current password and new password must not be same",
-        "toast2": "",
+        "toast2": "P",
         "toast3": ""
 
     }

@@ -16,6 +16,7 @@ export class TranslateConfigService {
     this.translate.setDefaultLang(language);
     return language;
   }
+  
 
   setLanguage(setLang) {
     this.translate.use(setLang);

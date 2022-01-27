@@ -27,7 +27,7 @@
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="language-outline"></ion-icon>
                 </div>
                 <div>
-                    <p class="homecontrol">{{ 'HOME.loading_notifications' | translate:params }}</p>
+                    <p class="homecontrol" (click)="nof()">{{ 'HOME.loading_notifications' | translate:params }}</p>
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="Notifications-outline"></ion-icon>
                 </div>
                 <div (click)="changepassword()">
@@ -40,6 +40,8 @@
                     <ion-icon style="position: relative;top: -34px;left: 8px;font-size: 20px;" name="language-outline"></ion-icon>
 
                 </div>
+
+
                 <ion-button style="position: relative; left: 100px;" (click)="logout()">{{ 'HOME.logout' | translate:params }}</ion-button>
 
 

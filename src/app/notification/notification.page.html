@@ -10,7 +10,39 @@
 
 
 <ion-content>
+    <!-- <ion-button id="trigger-button">Click to open popover</ion-button> -->
+    <div id="trigger-button1">
+        <ion-popover trigger="trigger-button1" side="end">
+            <ng-template>
+                <ion-content>
 
+                    <ion-item>
+                        <ion-label>Start Time</ion-label>
+                        <ion-datetime displayFormat="hh:mm a" [(ngModel)]="myDate1" presentation="time"></ion-datetime>
+                        <!-- <ion-button (click)="click(myDate)">save</ion-button> -->
+                    </ion-item>
+
+                    <ion-button (click)="click1(myDate1)">save</ion-button>
+                </ion-content>
+            </ng-template>
+        </ion-popover>
+    </div>
+    <div id="trigger-button2">
+        <ion-popover trigger="trigger-button2" side="end">
+            <ng-template>
+                <ion-content>
+
+                    <ion-item>
+                        <ion-label>End Time</ion-label>
+                        <ion-datetime displayFormat="hh:mm a" [(ngModel)]="myDate2" presentation="time"></ion-datetime>
+                        <!-- <ion-button (click)="click2(myDate2)">save</ion-button> -->
+                    </ion-item>
+                    <ion-button (click)="click2(myDate2)">save</ion-button>
+                </ion-content>
+            </ng-template>
+        </ion-popover>
+
+    </div>
     <div class="div">
 
         <div class="box1">
@@ -32,18 +64,18 @@
             </div>
 
         </div>
-        <div class="time" (click)="presentAlertPrompt()">
-            <ion-item>
+        <div class="time">
+            <ion-item (click)="start1()">
                 <p>Start Time</p>
                 <p class="line6">{{startTime}}</p>
             </ion-item>
-            <ion-item>
+            <ion-item (click)="start2()">
                 <p>End Time</p>
                 <p class="line7">{{endTime}}</p>
             </ion-item>
         </div>
         <div class="para3" id="hidden" style="display: none;">
-            <p>Notification will be turned off from {{startTime}} to {{endTime}}</p>
+            <p>Notification will be turned off from {{startTime}} to {{endTime}} </p>
         </div>
         <div class="two">
             <p style="position: relative;top: 50%; transform: translateY(-50%); left: 10px;">Set command for different features</p>

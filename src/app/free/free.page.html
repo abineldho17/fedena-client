@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>free</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-button id="trigger-button">Click to open popover</ion-button>
+    <ion-popover trigger="trigger-button" id="trigger-button" [dismissOnSelect]="true">
+        <ng-template>
+            <ion-content>
+
+                <ion-item>
+                    <ion-label>Start Time</ion-label>
+                    <ion-datetime displayFormat="hh:mm a" [(ngModel)]="myDate1" presentation="time"></ion-datetime>
+                    <!-- <ion-button (click)="click(myDate)">save</ion-button> -->
+                </ion-item>
+
+            </ion-content>
+        </ng-template>
+    </ion-popover>
+
+</ion-content>

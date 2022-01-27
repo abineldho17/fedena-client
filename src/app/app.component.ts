@@ -28,6 +28,11 @@ export class AppComponent {
     this.menuCtrl.toggle();
   }
 
+ nof() {
+    this.route.navigate(['/notification']);
+    this.menuCtrl.toggle();
+  }
+
 
 
   async presentAlertRadio() {

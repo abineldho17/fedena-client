@@ -51,7 +51,10 @@ export class NotificationPage implements OnInit {
 
 
   // }
+cancel(){
+  this.popoverController.dismiss();
 
+}
 
 
 
@@ -144,51 +147,51 @@ export class NotificationPage implements OnInit {
 
 
 
-  async presentAlertPrompt() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Select Time',
-      inputs: [
+  // async presentAlertPrompt() {
+  //   const alert = await this.alertController.create({
+  //     cssClass: 'my-custom-class',
+  //     header: 'Select Time',
+  //     inputs: [
 
 
-        {
-          name: 'time1',
-          type: 'time',
+  //       {
+  //         name: 'time1',
+  //         type: 'time',
 
 
-        },
+  //       },
 
-        {
-          name: 'time2',
-          type: 'time'
-        },
+  //       {
+  //         name: 'time2',
+  //         type: 'time'
+  //       },
 
 
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (alertData) => {
-            console.log(alertData.time1);
-            this.sTime = alertData.time1;
-            this.eTime = alertData.time2;
+  //     ],
+  //     buttons: [
+  //       {
+  //         text: 'Cancel',
+  //         role: 'cancel',
+  //         cssClass: 'secondary',
+  //         handler: () => {
+  //           console.log('Confirm Cancel');
+  //         }
+  //       }, {
+  //         text: 'Ok',
+  //         handler: (alertData) => {
+  //           console.log(alertData.time1);
+  //           this.sTime = alertData.time1;
+  //           this.eTime = alertData.time2;
 
-            this.startTime = this.sTime;
-            this.endTime = this.eTime;
-            document.getElementById('hidden').style.display = "block";
-          }
-        }
-      ]
-    });
+  //           this.startTime = this.sTime;
+  //           this.endTime = this.eTime;
+  //           document.getElementById('hidden').style.display = "block";
+  //         }
+  //       }
+  //     ]
+  //   });
 
-    await alert.present();
-  }
+  //   await alert.present();
+  // }
 
 }

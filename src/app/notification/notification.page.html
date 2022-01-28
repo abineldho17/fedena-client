@@ -12,7 +12,7 @@
 <ion-content>
     <!-- <ion-button id="trigger-button">Click to open popover</ion-button> -->
     <div id="trigger-button1">
-        <ion-popover trigger="trigger-button1" side="end">
+        <ion-popover trigger="trigger-button1">
             <ng-template>
                 <ion-content>
 
@@ -22,7 +22,8 @@
                         <!-- <ion-button (click)="click(myDate)">save</ion-button> -->
                     </ion-item>
 
-                    <ion-button (click)="click1(myDate1)">save</ion-button>
+                    <ion-button color="success" (click)="click1(myDate1)">save</ion-button>
+                    <ion-button color="danger" (click)="cancel()">cancel</ion-button>
                 </ion-content>
             </ng-template>
         </ion-popover>
@@ -37,7 +38,8 @@
                         <ion-datetime displayFormat="hh:mm a" [(ngModel)]="myDate2" presentation="time"></ion-datetime>
                         <!-- <ion-button (click)="click2(myDate2)">save</ion-button> -->
                     </ion-item>
-                    <ion-button (click)="click2(myDate2)">save</ion-button>
+                    <ion-button color="success" (click)="click2(myDate2)">save</ion-button>
+                    <ion-button color="danger" (click)="cancel()">cancel</ion-button>
                 </ion-content>
             </ng-template>
         </ion-popover>

@@ -13,6 +13,7 @@ import { AnnouncePipe } from './announce.pipe';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateConfigService } from './translate-config.service';
+import { DatePipe } from '@angular/common';
 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -27,7 +28,7 @@ export function LanguageLoader(http: HttpClient) {
       deps: [HttpClient]
     }
   })],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi:true,},{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },TranslateConfigService,
+  providers: [DatePipe,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi:true,},{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },TranslateConfigService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -23,6 +23,11 @@ export class AppComponent {
     this.route.navigate(['/home']);
     this.menuCtrl.toggle();
   }
+
+  report() {
+    this.route.navigate(['/reports']);
+    this.menuCtrl.toggle();
+  }
   changepassword() {
     this.route.navigate(['/password']);
     this.menuCtrl.toggle();

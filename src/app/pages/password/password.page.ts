@@ -127,7 +127,10 @@ this.passwordicon = this.passwordicon === 'eye-off' ? 'eye' : 'eye-off';
      
   }
 
-
+cancel(){
+  this.route.navigate(['/information']);
+        
+}
 
 
   showtrial() {

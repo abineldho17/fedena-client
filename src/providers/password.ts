@@ -27,10 +27,10 @@ import { AppSettings } from './app-settings';
   }
 
 
-  reset(login){
+  reset(data){
     const body = {
-        old_password:  login.old_password,
-        new_password: login.new_password
+        old_password:  data.old_password,
+        new_password: data.new_password
     }
     let header = {
         Authorization: 'Bearer token='+ window.localStorage.getItem("access_token")+';',

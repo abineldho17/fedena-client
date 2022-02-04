@@ -45,10 +45,7 @@ const routes: Routes = [
     path: 'password',
     loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
   },
-  {
-    path: 'modal',
-    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
-  },
+  
   {
     path: 'notification',
     loadChildren: () => import('./notification/notification.module').then( m => m.NotificationPageModule)
@@ -57,7 +54,15 @@ const routes: Routes = [
     path: 'free',
     loadChildren: () => import('./free/free.module').then( m => m.FreePageModule)
   },
+  {
+    path: 'reports',
+    loadChildren: () => import('./pages/reports/reports.module').then( m => m.ReportsPageModule)
+  },
  
+  {
+    path: 'filter-reports',
+    loadChildren: () => import('./filter-reports/filter-reports.module').then( m => m.FilterReportsPageModule)
+  }
   
 ];
 

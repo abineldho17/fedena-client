@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button style="color: antiquewhite;" defaultHref="/information"></ion-back-button>
+        </ion-buttons>
+        <ion-title style="color: antiquewhite;">Reports</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="selectedSegment" color="light">
+            <ion-segment-button class="segment-button" value="user_entry_log">
+                <ion-label>User Entry</ion-label>
+            </ion-segment-button>
+            <ion-segment-button class="segment-button" value="gate_pass">
+                <ion-label>Gate Pass</ion-label>
+            </ion-segment-button>
+            <ion-segment-button class="segment-button" value="visitor_record">
+                <ion-label>Visitor Entry</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <h1 *ngIf="view == true">Table View</h1>
+    <h1 *ngIf="view == false">Graph View</h1>
+
+
+    <ion-item lines="none">
+
+        <ion-toggle [(ngModel)]="view" (ionChange)="onChangeView()"></ion-toggle>
+        <ion-item lines="none">
+            <ion-icon slot="end" name="filter-circle-outline" size="large" (click)="presentModal()"></ion-icon>
+        </ion-item>
+
+    </ion-item>
+    <div *ngIf="selectedSegment == 'user_entry_log'">
+
+        <div *ngIf="view == true" id="tableView">
+
+            <table border="1">
+                <tr>
+                    <th>S.No</th>
+                    <th>Username</th>
+                    <th>Date & Time</th>
+                    <th>Batch / Department</th>
+                    <th>User Type</th>
+                </tr>
+                <tr *ngFor="let user of tableData; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{user.user_name}}</td>
+                    <td>{{user.created_at}}</td>
+                    <td>{{user.batch_or_department}}</td>
+                    <td>{{user.user_type}}</td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="view == false" id="graphView">
+            <ion-item lines="none">
+
+
+            </ion-item>
+            <ion-icon name="accessibility-outline"></ion-icon>
+        </div>
+    </div>
+    <div *ngIf="selectedSegment == 'gate_pass'">
+        <ion-icon name="add-circle-outline"></ion-icon>
+    </div>
+    <div *ngIf="selectedSegment == 'visitor_record'">
+        <ion-icon name="apps-outline"></ion-icon>
+
+    </div>
+</ion-content>

@@ -1,0 +1,38 @@
+ion-toolbar {
+    --background: rgba(244, 67, 53, 255);
+}
+
+ion-segment {
+    --background: rgba(244, 67, 53, 255);
+}
+
+.segment-button {
+    color: white; // here, instead of "red" you can use sass variable if it was already defined
+}
+
+.view-button {
+    color: white; // here, instead of "red" you can use sass variable if it was already defined
+}
+
+// ion-toggle {
+//     // position: absolute;
+//     // bottom: 50px;
+// }
+table {
+    display: block;
+    overflow: scroll;
+    white-space: nowrap;
+    border-color: grey;
+    tr {
+        border-color: grey;
+        height: 40px;
+    }
+    th {
+        background: rgb(238, 236, 236);
+        color: rgb(37, 37, 37);
+    }
+    td {
+        padding: 13px;
+    }
+    border: 1px;
+}

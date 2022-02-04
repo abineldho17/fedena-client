@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar>
+
+        <ion-icon name="arrow-back-outline" slot="start" color="light" size="large" (click)="dismiss()"></ion-icon>
+
+        <ion-title style="color: antiquewhite; font-weight: 500;">Filter</ion-title>
+        <p slot="end" style="color: rgba(80, 77, 74, 0.801); font-size: 16px; position: relative; right: 10px; ">CLEAR FILTER</p>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div id="title">
+        <ion-title>Date Range</ion-title>
+    </div>
+    <div id="implementation">
+        <ion-radio-group [(ngModel)]="user.daterange">
+            <ion-row>
+                <ion-col>
+                    <ion-item lines="none">
+                        <ion-radio value="today"></ion-radio>
+                        <ion-label>Today</ion-label>
+                    </ion-item>
+                </ion-col>
+
+                <ion-col>
+                    <ion-item lines="none">
+                        <ion-radio value="week"></ion-radio>
+                        <ion-label>Week</ion-label>
+                    </ion-item>
+                </ion-col>
+
+                <ion-col>
+                    <ion-item lines="none">
+                        <ion-radio value="custom"></ion-radio>
+                        <ion-label>Custom</ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-radio-group>
+        <div *ngIf="user.daterange == 'custom' ">
+            <ion-item>
+                <ion-label>Start Time</ion-label>
+                <ion-datetime displayFormat="MM DD YY" [(ngModel)]="startDate"></ion-datetime>
+
+            </ion-item>
+            <ion-item>
+                <ion-label>End Time</ion-label>
+                <ion-datetime displayFormat="MM DD YY" [(ngModel)]="endDate"></ion-datetime>
+
+            </ion-item>
+
+        </div>
+    </div>
+
+</ion-content>
+<ion-footer lines="none">
+    <ion-toolbar lines="none">
+        <div style="text-align: center;">
+            <ion-button (click)="apply()" [disabled]="!user.daterange">Apply</ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

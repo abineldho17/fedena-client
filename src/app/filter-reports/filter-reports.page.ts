@@ -14,7 +14,7 @@ import { TranslateConfigService } from '../translate-config.service'
 export class FilterReportsPage implements OnInit {
   @Input() logData: string
   user = {
-    daterange: '',
+    daterange: 'today',
   }
   val: string
   view: boolean = true
@@ -28,13 +28,15 @@ export class FilterReportsPage implements OnInit {
     start_date: '',
     end_date: '',
   }
-  
+
   constructor(
-    public modalController: ModalController,public alertController: AlertController,public datepipe: DatePipe,
+    public modalController: ModalController,
+    public alertController: AlertController,
+    public datepipe: DatePipe,
   ) {}
 
   ngOnInit() {
-    console.log(this.logData)
+    // console.log(this.logData)
   }
 
   // locationData() {
@@ -49,7 +51,7 @@ export class FilterReportsPage implements OnInit {
 
   apply() {
     this.filterData.date_range = this.user.daterange
-console.log(this.filterData.date_range);
+    console.log(this.filterData.date_range)
     if (this.user.daterange == 'custom') {
       this.filterData.start_date = this.datepipe.transform(
         this.startDate,

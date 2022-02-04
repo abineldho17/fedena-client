@@ -25,7 +25,7 @@ export class ReportsPage implements OnInit {
   graphUser: any
   graphData: []
 
-  data = {
+  api = {
     entryTpe: '',
     date_range: '',
     start_date: '',
@@ -35,37 +35,37 @@ export class ReportsPage implements OnInit {
 
   userEntryTable = {
     entryType: '',
-    data_range: '',
+    date_range: '',
     start_date: '',
     end_date: '',
   }
   userEntryGraph = {
     entryType: '',
-    data_range: '',
+    date_range: '',
     start_date: '',
     end_date: '',
   }
   gatePassTable = {
     entryType: '',
-    data_range: '',
+    date_range: '',
     start_date: '',
     end_date: '',
   }
   gatePassGraph = {
     entryType: '',
-    data_range: '',
+    date_range: '',
     start_date: '',
     end_date: '',
   }
   visitorEntryTable = {
     entryType: '',
-    data_range: '',
+    date_range: '',
     start_date: '',
     end_date: '',
   }
   visitorEntryGraph = {
     entryType: '',
-    data_range: '',
+    date_range: '',
     start_date: '',
     end_date: '',
   }
@@ -80,7 +80,7 @@ export class ReportsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getTableData()
+    this.checkingSegmentView()
   }
 
   async presentLoading(message: string) {
@@ -100,51 +100,43 @@ export class ReportsPage implements OnInit {
     modal.onDidDismiss().then((res) => {
       if (this.selectedSegment == 'user_entry_log') {
         if (this.view == true) {
-          // this.fetchLocation = 'user_entry_log_table'
-          // console.log(this.fetchLocation)
-          this.userEntryTable.data_range = res.data.date_range
+          this.userEntryTable.date_range = res.data.date_range
           this.userEntryTable.start_date = res.data.start_date
           this.userEntryTable.end_date = res.data.end_date
-          this.userEntryTable.entryType = 'user_entry_log'
         } else {
           this.fetchLocation = 'user_entry_log_graph'
           console.log(this.fetchLocation)
-          this.userEntryGraph.data_range = res.data.date_range
+          this.userEntryGraph.date_range = res.data.date_range
           this.userEntryGraph.start_date = res.data.start_date
           this.userEntryGraph.end_date = res.data.end_date
-          this.userEntryTable.entryType = 'user_entry_log'
         }
       } else if (this.selectedSegment == 'gate_pass') {
         if (this.view == true) {
           this.fetchLocation = 'gate_pass_table'
           console.log(this.fetchLocation)
-          this.gatePassTable.data_range = res.data.date_range
+          this.gatePassTable.date_range = res.data.date_range
           this.gatePassTable.start_date = res.data.start_date
           this.gatePassTable.end_date = res.data.end_date
-          this.gatePassTable.entryType = 'gate_pass'
         } else {
           this.fetchLocation = 'gate_pass_graph'
           console.log(this.fetchLocation)
-          this.gatePassGraph.data_range = res.data.date_range
+          this.gatePassGraph.date_range = res.data.date_range
           this.gatePassGraph.start_date = res.data.start_date
           this.gatePassGraph.end_date = res.data.end_date
-          this.gatePassGraph.entryType = 'gate_pass'
         }
       } else {
         if (this.view == true) {
           this.fetchLocation = 'visitor_record_table'
           console.log(this.fetchLocation)
-          this.visitorEntryTable.data_range = res.data.date_range
+          this.visitorEntryTable.date_range = res.data.date_range
           this.visitorEntryTable.start_date = res.data.start_dat
           this.visitorEntryTable.end_date = res.data.end_date
-          this.visitorEntryTable.entryType = 'visitor_record'
         } else {
           this.fetchLocation = 'visitor_record_graph'
           console.log(this.fetchLocation)
-          this.visitorEntryGraph.data_range = res.data.date_range
+          this.visitorEntryGraph.date_range = res.data.date_range
           this.visitorEntryGraph.start_date = res.data.start_date
           this.visitorEntryGraph.end_date = res.data.end_date
-          this.visitorEntryGraph.entryType = 'visitor_record'
         }
       }
       this.onChangeView()
@@ -155,10 +147,12 @@ export class ReportsPage implements OnInit {
   onChangeView() {
     if (this.view) {
       console.log('true')
-      this.getTableData()
+
+      this.checkingSegmentView()
     } else {
       console.log('false')
-      this.getGraphData()
+
+      this.checkingSegmentView()
     }
   }
 
@@ -169,140 +163,119 @@ export class ReportsPage implements OnInit {
     this.onChangeView()
   }
 
-  // getTableData() {
-  //   this.presentLoading('loading table data')
-  //   this.data.entryTpe = this.selectedSegment
-  //   this.reportService.getTableData(this.data).subscribe((res) => {
-  //     this.loadingController.dismiss()
+  realApiTable(api) {
+    this.presentLoading('loading table data')
 
-  //     this.totalUser = res
-  //     this.tableData = this.totalUser.data
-  //     console.log(this.tableData)
-  //   })
-  // }
+    api.entryTpe = this.selectedSegment
 
-  getTableData() {
-    this.presentLoading('Loading Table Data')
-    console.log(this.selectedSegment)
-    this.data.entryTpe = this.selectedSegment
+    if (api.date_range == 'custom') {
+      console.log('check1')
+      const httpParams = new HttpParams({
+        fromObject: {
+          page: '1',
+          entry_type: api.entryTpe,
+          date_range: api.date_range,
 
-    if (this.selectedSegment == 'user_entry_log') {
-      if (this.view == true) {
-        // this.fetchLocation = 'user_entry_log_table'
-        // console.log(this.fetchLocation)
+          start_date: api.start_date,
+          end_date: api.end_date,
+        },
+      })
+      const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
+      this.reportService.getTableData(apiUrl).subscribe((res) => {
+        this.loadingController.dismiss()
 
-        this.reportService
-          .getTableData(this.userEntryTable)
-          .subscribe((res) => {
-            this.loadingController.dismiss()
-            console.log(res)
-            this.totalUser = res
-            // console.log(this.totalUser.data[0]);
-            this.totalUser = this.totalUser.data
-            console.log(this.totalUser)
-          })
-      } else {
-        this.fetchLocation = 'user_entry_log_graph'
-        console.log(this.fetchLocation)
-      }
-    } else if (this.selectedSegment == 'gate_pass') {
-      if (this.view == true) {
-        this.fetchLocation = 'gate_pass_table'
-        console.log(this.fetchLocation)
-
-        this.reportService.getTableData(this.gatePassTable).subscribe((res) => {
-          this.loadingController.dismiss()
-          console.log(res)
-          this.totalUser = res
-          // console.log(this.totalUser.data[0]);
-          this.totalUser = this.totalUser.data
-          console.log(this.totalUser)
-        })
-      } else {
-        this.fetchLocation = 'gate_pass_graph'
-        console.log(this.fetchLocation)
-      }
+        this.totalUser = res
+        this.tableData = this.totalUser.data
+        console.log(this.tableData)
+      })
     } else {
-      if (this.view == true) {
-        this.fetchLocation = 'visitor_record_table'
-        console.log(this.fetchLocation)
+      const httpParams = new HttpParams({
+        fromObject: {
+          page: '1',
+          entry_type: api.entryTpe,
+          date_range: api.date_range,
+        },
+      })
+      const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
+      this.reportService.getTableData(apiUrl).subscribe((res) => {
+        this.loadingController.dismiss()
 
-        this.reportService
-          .getTableData(this.visitorEntryTable)
-          .subscribe((res) => {
-            this.loadingController.dismiss()
-            console.log(res)
-            this.totalUser = res
-            // console.log(this.totalUser.data[0]);
-            this.totalUser = this.totalUser.data
-            console.log(this.totalUser)
-          })
-      } else {
-        this.fetchLocation = 'visitor_record_graph'
-        console.log(this.fetchLocation)
-      }
+        this.totalUser = res
+        this.tableData = this.totalUser.data
+        console.log(this.tableData)
+      })
     }
-
   }
 
-  
+  realApiGraph(api) {
+    this.presentLoading('loading table data')
+    if (api.date_range == 'custom') {
+      const httpParams = new HttpParams({
+        fromObject: {
+          page: '1',
+          entry_type: api.entryTpe,
+          date_range: api.date_range,
 
-  getGraphData() {
-    this.presentLoading('Loading Graph Data')
-    console.log(this.selectedSegment)
-    this.data.entryTpe = this.selectedSegment
+          start_date: api.start_date,
+          end_date: api.end_date,
+        },
+      })
+      const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
+      api.entryTpe = this.selectedSegment
+      this.reportService.getGraphData(apiUrl).subscribe((res) => {
+        this.loadingController.dismiss()
 
+        this.totalUser = res
+        this.tableData = this.totalUser.data
+        console.log(this.tableData)
+      })
+    } else {
+      const httpParams = new HttpParams({
+        fromObject: {
+          page: '1',
+          entry_type: api.entryTpe,
+          date_range: api.date_range,
+
+          start_date: api.start_date,
+          end_date: api.end_date,
+        },
+      })
+      const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
+      api.entryTpe = this.selectedSegment
+      this.reportService.getGraphData(apiUrl).subscribe((res) => {
+        this.loadingController.dismiss()
+
+        this.totalUser = res
+        this.tableData = this.totalUser.data
+        console.log(this.tableData)
+      })
+    }
+  }
+
+  checkingSegmentView() {
     if (this.selectedSegment == 'user_entry_log') {
-      if (this.view == false) {
-        // this.fetchLocation = 'user_entry_log_table'
-        // console.log(this.fetchLocation)
+      if (this.view == true) {
+        this.userEntryTable.entryType = 'user_entry_log'
+        this.realApiTable(this.userEntryTable)
       } else {
-        this.fetchLocation = 'user_entry_log_graph'
-        console.log(this.fetchLocation)
-
-        this.reportService
-          .getGraphData(this.userEntryGraph)
-          .subscribe((res) => {
-            this.loadingController.dismiss()
-            console.log(res)
-            this.graphUser = res
-            this.graphData = this.graphUser.data
-            console.log(this.graphData)
-          })
+        this.userEntryGraph.entryType = 'user_entry_log'
+        this.realApiGraph(this.userEntryGraph)
       }
     } else if (this.selectedSegment == 'gate_pass') {
-      if (this.view == false) {
-        this.fetchLocation = 'gate_pass_table'
-        console.log(this.fetchLocation)
+      if (this.view == true) {
+        this.gatePassTable.entryType = 'gate_pass'
+        this.realApiTable(this.gatePassTable)
       } else {
-        this.fetchLocation = 'gate_pass_graph'
-        console.log(this.fetchLocation)
-
-        this.reportService.getGraphData(this.gatePassGraph).subscribe((res) => {
-          this.loadingController.dismiss()
-          console.log(res)
-          this.graphUser = res
-          this.graphData = this.graphUser.data
-          console.log(this.graphData)
-        })
+        this.gatePassGraph.entryType = 'gate_pass'
+        this.realApiGraph(this.gatePassGraph)
       }
     } else {
-      if (this.view == false) {
-        this.fetchLocation = 'visitor_record_table'
-        console.log(this.fetchLocation)
+      if (this.view == true) {
+        this.visitorEntryTable.entryType = 'visitor_record'
+        this.realApiTable(this.visitorEntryTable)
       } else {
-        this.fetchLocation = 'visitor_record_graph'
-        console.log(this.fetchLocation)
-
-        this.reportService
-          .getGraphData(this.visitorEntryGraph)
-          .subscribe((res) => {
-            this.loadingController.dismiss()
-            console.log(res)
-            this.graphUser = res
-            this.graphData = this.graphUser.data
-            console.log(this.graphData)
-          })
+        this.visitorEntryGraph.entryType = 'visitor_record'
+        this.realApiGraph(this.visitorEntryGraph)
       }
     }
   }

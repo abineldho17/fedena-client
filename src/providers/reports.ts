@@ -16,31 +16,12 @@ export class Reports {
   ngOnInit() {}
 
   getTableData(data) {
-    const httpParams = new HttpParams({
-      fromObject: {
-        page: '1',
-        entry_type: data.entryTpe,
-        date_range: data.date_range,
-
-        start_date: data.start_date,
-        end_date: data.end_date,
-      },
-    })
-    const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
-    return this.http.get(`${apiUrl}`)
+   
+    return this.http.get(`${data}`)
   }
 
   getGraphData(data) {
-    const httpParams = new HttpParams({
-      fromObject: {
-        page: '1',
-        entry_type: data.entryTpe,
-        date_range: data.date_range,
-        start_date: data.start_date,
-        end_date: data.end_date,
-      },
-    })
-    const apiUrl = Reports.api_url + 'gate_management/statistics?' + httpParams
-    return this.http.get(`${apiUrl}`)
+   
+    return this.http.get(`${data}`)
   }
 }

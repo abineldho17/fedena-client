@@ -18,21 +18,57 @@ ion-segment {
 //     // position: absolute;
 //     // bottom: 50px;
 // }
-table {
-    display: block;
-    overflow: scroll;
+.table-table {
+    border: none;
+    border-right: solid 1px #DDEFEF;
+    border-collapse: separate;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+}
+
+.table-table thead th {
+    background-color: #DDEFEF;
+    border: none;
+    color: #336B6B;
+    padding: 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px #fff;
     white-space: nowrap;
-    border-color: grey;
-    tr {
-        border-color: grey;
-        height: 40px;
-    }
-    th {
-        background: rgb(238, 236, 236);
-        color: rgb(37, 37, 37);
-    }
-    td {
-        padding: 13px;
-    }
-    border: 1px;
+}
+
+.table-table tbody td {
+    border-bottom: solid 1px #DDEFEF;
+    color: #333;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #fff;
+    white-space: nowrap;
+}
+
+.table-wrapper {
+    position: relative;
+}
+
+.table-scroller {
+    margin-left: 321px;
+    overflow-x: scroll;
+    overflow-y: visible;
+    padding-bottom: 5px;
+    width: 80px;
+}
+
+.table-table .table-sticky-col {
+    border-left: solid 1px #DDEFEF;
+    left: 0;
+    position: absolute;
+    top: auto;
+    width: 40px;
+}
+
+.table-table .table-sticky-col2 {
+    border-right: solid 1px #DDEFEF;
+    left: 40px;
+    position: absolute;
+    top: auto;
+    width: 290px;
+    background: white;
 }

@@ -62,6 +62,10 @@ const routes: Routes = [
   {
     path: 'filter-reports',
     loadChildren: () => import('./filter-reports/filter-reports.module').then( m => m.FilterReportsPageModule)
+  },
+  {
+    path: 'graph',
+    loadChildren: () => import('./graph/graph.module').then( m => m.GraphPageModule)
   }
   
 ];

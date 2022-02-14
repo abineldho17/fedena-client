@@ -12,9 +12,10 @@ import { TranslateConfigService } from '../translate-config.service'
   styleUrls: ['./filter-reports.page.scss'],
 })
 export class FilterReportsPage implements OnInit {
-  @Input() logData: string
+  @Input() selectedVal: any
+
   user = {
-    daterange: 'today',
+    daterange: '',
   }
   val: string
   view: boolean = true
@@ -28,7 +29,8 @@ export class FilterReportsPage implements OnInit {
     start_date: '',
     end_date: '',
   }
-
+  isSubmitBtnDisabled: boolean
+  disableButtonMode: boolean = true
   constructor(
     public modalController: ModalController,
     public alertController: AlertController,
@@ -36,17 +38,22 @@ export class FilterReportsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // console.log(this.logData)
+    console.log(this.selectedVal)
+    this.filterData = this.selectedVal
+    this.user.daterange = this.filterData.date_range
+    this.startDate = this.filterData.start_date
+    this.endDate = this.filterData.end_date
   }
 
-  // locationData() {
-  //   if (this.logData == 'user_entry_log_table') {
-  //   }
-  // }
+  clearfilter() {
+    console.log('clicked')
+    this.user.daterange = ''
+    this.filterData.start_date = ''
+    this.filterData.end_date = ''
+  }
 
   dismiss() {
-    this.filterData.date_range = this.user.daterange
-    this.modalController.dismiss(this.filterData)
+    this.modalController.dismiss()
   }
 
   apply() {

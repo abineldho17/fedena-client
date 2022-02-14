@@ -1,3 +1,5 @@
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script> -->
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
@@ -20,7 +22,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
     <h1 *ngIf="view == true">Table View</h1>
     <h1 *ngIf="view == false">Graph View</h1>
 
@@ -28,7 +30,7 @@
     <ion-item lines="none">
 
         <ion-toggle [(ngModel)]="view" (ionChange)="onChangeView()"></ion-toggle>
-        <ion-item lines="none">
+        <ion-item lines="none" slot="end">
             <ion-icon slot="end" name="filter-circle-outline" size="large" (click)="presentModal()"></ion-icon>
         </ion-item>
 
@@ -37,36 +39,153 @@
 
         <div *ngIf="view == true" id="tableView">
 
-            <table border="1">
-                <tr>
-                    <th>S.No</th>
-                    <th>Username</th>
-                    <th>Date & Time</th>
-                    <th>Batch / Department</th>
-                    <th>User Type</th>
-                </tr>
-                <tr *ngFor="let user of tableData; let i = index">
-                    <td>{{i+1}}</td>
-                    <td>{{user.user_name}}</td>
-                    <td>{{user.created_at}}</td>
-                    <td>{{user.batch_or_department}}</td>
-                    <td>{{user.user_type}}</td>
-                </tr>
-            </table>
+
+            <div class="table-wrapper">
+                <div class="table-scroller">
+                    <table class="table-table">
+                        <thead>
+                            <tr>
+
+
+                                <th class="table-sticky-col">S No</th>
+                                <th class="table-sticky-col2">Username</th>
+                                <th>Date & Time</th>
+                                <th>Batch / Department</th>
+                                <th>User Type</th>
+
+                            </tr>
+                        </thead>
+
+
+
+                        <tbody>
+                            <tr *ngFor="let user of tableData; let i = index">
+                                <td class="table-sticky-col">{{i+1}}</td>
+                                <td class="table-sticky-col2">{{user.user_name}}</td>
+                                <td>{{user.created_at}}</td>
+                                <td>{{user.batch_or_department}}</td>
+                                <td>{{user.user_type}}</td>
+                            </tr>
+
+                        </tbody>
+
+
+
+                    </table>
+                </div>
+            </div>
+
+
         </div>
+
         <div *ngIf="view == false" id="graphView">
-            <ion-item lines="none">
 
+            <div class="ion-padding">
 
-            </ion-item>
-            <ion-icon name="accessibility-outline"></ion-icon>
+                <div id="divChart">
+                    <canvas id="myChart" width="600px" height="1020px"></canvas>
+                </div>
+            </div>
         </div>
     </div>
+
+
+
+
     <div *ngIf="selectedSegment == 'gate_pass'">
-        <ion-icon name="add-circle-outline"></ion-icon>
+
+        <div class="ion-padding">
+            <div *ngIf="view == true" id="tableView">
+                <div class="table-wrapper">
+                    <div class="table-scroller">
+                        <table class="table-table">
+                            <thead>
+                                <tr>
+
+
+                                    <th class="table-sticky-col">S No</th>
+                                    <th class="table-sticky-col2">Username</th>
+                                    <th>Date & Time</th>
+                                    <th>Batch / Department</th>
+                                    <th>User Type</th>
+
+                                </tr>
+                            </thead>
+
+
+
+                            <tbody>
+                                <tr *ngFor="let user of tableData; let i = index">
+                                    <td class="table-sticky-col">{{i+1}}</td>
+                                    <td class="table-sticky-col2">{{user.user_name}}</td>
+                                    <td>{{user.created_at}}</td>
+                                    <td>{{user.batch_or_department}}</td>
+                                    <td>{{user.user_type}}</td>
+                                </tr>
+
+                            </tbody>
+
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="view == false" id="graphView">
+                <div id="divChart">
+                    <canvas id="myChart" width="600px" height="1020px"></canvas>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div *ngIf="selectedSegment == 'visitor_record'">
-        <ion-icon name="apps-outline"></ion-icon>
+
+
+        <div class="ion-padding">
+            <div *ngIf="view == true" id="tableView">
+                <div class="table-wrapper">
+                    <div class="table-scroller">
+                        <table class="table-table">
+                            <thead>
+                                <tr>
+
+
+                                    <th class="table-sticky-col">S No</th>
+                                    <th class="table-sticky-col2">Username</th>
+                                    <th>Date & Time</th>
+                                    <th>Batch / Department</th>
+                                    <th>User Type</th>
+
+                                </tr>
+                            </thead>
+
+
+
+                            <tbody>
+                                <tr *ngFor="let user of tableData; let i = index">
+                                    <td class="table-sticky-col">{{i+1}}</td>
+                                    <td class="table-sticky-col2">{{user.visitor_name}}</td>
+                                    <td>{{user.created_at}}</td>
+                                    <td>{{user.status_updated_by}}</td>
+                                    <td>{{user.employee_number}}</td>
+                                </tr>
+
+                            </tbody>
+
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="view == false" id="graphView">
+                <div id="divChart">
+                    <canvas id="myChart" width="600px" height="1020px"></canvas>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 </ion-content>

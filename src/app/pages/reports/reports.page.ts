@@ -1,38 +1,53 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { AppSettings } from 'src/providers/app-settings'
-import { Router } from '@angular/router'
+import {  Router } from '@angular/router'
 import { Reports } from 'src/providers/reports'
 import { LoadingController, ModalController } from '@ionic/angular'
 
 import { FilterReportsPage } from 'src/app/filter-reports/filter-reports.page'
+import * as Chart from 'chart.js'
+// import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { default as pluginDataLabels  } from 'chartjs-plugin-datalabels';
+
+// import { endianness } from 'os'
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.page.html',
   styleUrls: ['./reports.page.scss'],
 })
-export class ReportsPage implements OnInit {
-  status = true
 
+export class ReportsPage implements OnInit {
+  barChart: any
+  status = true
+  httpParams: any
   view: boolean = true
 
   selectedSegment: string = 'user_entry_log'
   private selectedView: string = 'tableView'
-
+  myChart: any
   totalUser: any
   tableData: []
 
   graphUser: any
   graphData: []
 
-  api = {
+  selectedData = {
     entryTpe: '',
     date_range: '',
     start_date: '',
     end_date: '',
   }
-  modelData: any
 
+  dataSelected = {
+    // entryTpe: '',
+    date_range: '',
+    start_date: '',
+    end_date: '',
+  }
+  modelData: any
+  dates: []
+  entry: []
   userEntryTable = {
     entryType: '',
     date_range: '',
@@ -69,6 +84,9 @@ export class ReportsPage implements OnInit {
     start_date: '',
     end_date: '',
   }
+ 
+  public columns: any;
+  public rows: any;
   loading: HTMLIonLoadingElement
   fetchLocation: string
   constructor(
@@ -94,188 +112,336 @@ export class ReportsPage implements OnInit {
     const modal = await this.modalController.create({
       component: FilterReportsPage,
       cssClass: 'my-custom-class',
-      componentProps: {},
+      componentProps: {
+        selectedVal: this.dataSelected,
+      },
     })
 
     modal.onDidDismiss().then((res) => {
-      if (this.selectedSegment == 'user_entry_log') {
-        if (this.view == true) {
-          this.userEntryTable.date_range = res.data.date_range
-          this.userEntryTable.start_date = res.data.start_date
-          this.userEntryTable.end_date = res.data.end_date
+      console.log(res)
+      if (res.data != undefined) {
+        if (this.selectedSegment == 'user_entry_log') {
+          if (this.view == true) {
+            this.userEntryTable = res.data
+          } else {
+            this.fetchLocation = 'user_entry_log_graph'
+            this.userEntryGraph = res.data
+          }
+        } else if (this.selectedSegment == 'gate_pass') {
+          if (this.view == true) {
+            // this.fetchLocation = 'gate_pass_table'
+            this.gatePassTable = res.data
+          } else {
+            this.fetchLocation = 'gate_pass_graph'
+            this.gatePassGraph = res.data
+          }
         } else {
-          this.fetchLocation = 'user_entry_log_graph'
-          console.log(this.fetchLocation)
-          this.userEntryGraph.date_range = res.data.date_range
-          this.userEntryGraph.start_date = res.data.start_date
-          this.userEntryGraph.end_date = res.data.end_date
+          if (this.view == true) {
+            // this.fetchLocation = 'visitor_record_table'
+            this.visitorEntryTable = res.data
+          } else {
+            // this.fetchLocation = 'visitor_record_graph'
+            this.visitorEntryGraph = res.data
+          }
         }
-      } else if (this.selectedSegment == 'gate_pass') {
-        if (this.view == true) {
-          this.fetchLocation = 'gate_pass_table'
-          console.log(this.fetchLocation)
-          this.gatePassTable.date_range = res.data.date_range
-          this.gatePassTable.start_date = res.data.start_date
-          this.gatePassTable.end_date = res.data.end_date
-        } else {
-          this.fetchLocation = 'gate_pass_graph'
-          console.log(this.fetchLocation)
-          this.gatePassGraph.date_range = res.data.date_range
-          this.gatePassGraph.start_date = res.data.start_date
-          this.gatePassGraph.end_date = res.data.end_date
-        }
-      } else {
-        if (this.view == true) {
-          this.fetchLocation = 'visitor_record_table'
-          console.log(this.fetchLocation)
-          this.visitorEntryTable.date_range = res.data.date_range
-          this.visitorEntryTable.start_date = res.data.start_dat
-          this.visitorEntryTable.end_date = res.data.end_date
-        } else {
-          this.fetchLocation = 'visitor_record_graph'
-          console.log(this.fetchLocation)
-          this.visitorEntryGraph.date_range = res.data.date_range
-          this.visitorEntryGraph.start_date = res.data.start_date
-          this.visitorEntryGraph.end_date = res.data.end_date
-        }
+        this.onChangeView()
       }
-      this.onChangeView()
     })
     await modal.present()
   }
 
   onChangeView() {
-    if (this.view) {
-      console.log('true')
-
-      this.checkingSegmentView()
-    } else {
-      console.log('false')
-
-      this.checkingSegmentView()
-    }
+    this.checkingSegmentView()
   }
 
   segmentChanged(ev: any) {
     console.log('Segment changed', ev)
     this.selectedSegment = ev.target.value
-
     this.onChangeView()
   }
 
-  realApiTable(api) {
+  getTableData(selectedData) {
+    console.log('table')
+    console.log(selectedData.date_range)
+
     this.presentLoading('loading table data')
 
-    api.entryTpe = this.selectedSegment
+    selectedData.entryTpe = this.selectedSegment
 
-    if (api.date_range == 'custom') {
-      console.log('check1')
-      const httpParams = new HttpParams({
-        fromObject: {
-          page: '1',
-          entry_type: api.entryTpe,
-          date_range: api.date_range,
+    let params =
+      'entry_type=' +
+      selectedData.entryTpe +
+      (selectedData.date_range != ''
+        ? '&date_range=' + selectedData.date_range
+        : '') +
+      (selectedData.start_date != ''
+        ? '&start_date=' + selectedData.start_date
+        : '') +
+      (selectedData.end_date != '' ? '&end_date=' + selectedData.end_date : '')
 
-          start_date: api.start_date,
-          end_date: api.end_date,
-        },
-      })
-      const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
-      this.reportService.getTableData(apiUrl).subscribe((res) => {
-        this.loadingController.dismiss()
+     
 
-        this.totalUser = res
-        this.tableData = this.totalUser.data
-        console.log(this.tableData)
-      })
-    } else {
-      const httpParams = new HttpParams({
-        fromObject: {
-          page: '1',
-          entry_type: api.entryTpe,
-          date_range: api.date_range,
-        },
-      })
-      const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
-      this.reportService.getTableData(apiUrl).subscribe((res) => {
-        this.loadingController.dismiss()
+    this.reportService.getTableData(params).subscribe((res) => {
+      this.loadingController.dismiss()
 
-        this.totalUser = res
-        this.tableData = this.totalUser.data
-        console.log(this.tableData)
-      })
-    }
+      this.totalUser = res
+      this.tableData = this.totalUser.data
+      console.log(this.tableData);
+      
+    })
   }
 
-  realApiGraph(api) {
+  getGraphData(selectedData) {
+    console.log('graph')
     this.presentLoading('loading table data')
-    if (api.date_range == 'custom') {
-      const httpParams = new HttpParams({
-        fromObject: {
-          page: '1',
-          entry_type: api.entryTpe,
-          date_range: api.date_range,
 
-          start_date: api.start_date,
-          end_date: api.end_date,
+    selectedData.entryTpe = this.selectedSegment
+
+    let params =
+      'entry_type=' +
+      selectedData.entryTpe +
+      (selectedData.date_range != ''
+        ? '&date_range=' + selectedData.date_range
+        : '') +
+      (selectedData.start_date != ''
+        ? '&start_date=' + selectedData.start_date
+        : '') +
+      (selectedData.end_date != '' ? '&end_date=' + selectedData.end_date : '')
+
+    this.reportService.getGraphData(params).subscribe((res) => {
+      this.loadingController.dismiss()
+
+      this.totalUser = res
+
+      console.log(this.totalUser)
+      console.log(this.tableData)
+      this.dates = this.totalUser.data.dates
+      this.entry = this.totalUser.data.entry_count
+      // Chart.plugins.register(ChartDataLabels);
+      const labels = this.dates;
+      // const data = {
+      //   labels: labels,
+      //   // datalabels:labels,
+      //   datasets: [
+      //     {
+      //       axis: 'y',
+      //       data: this.entry,
+      //       fill: false,
+      //       // align:'top',
+
+      //       backgroundColor: [
+      //         'rgba(255, 99, 132, 0.2)',
+      //         'rgba(255, 159, 64, 0.2)',
+      //         'rgba(255, 205, 86, 0.2)',
+      //         'rgba(75, 192, 192, 0.2)',
+      //         'rgba(54, 162, 235, 0.2)',
+      //         'rgba(153, 102, 255, 0.2)',
+      //         'rgba(201, 203, 207, 0.2)',
+      //         'rgba(255, 99, 132, 0.2)',
+      //         'rgba(255, 159, 64, 0.2)',
+      //         'rgba(255, 205, 86, 0.2)',
+      //         'rgba(75, 192, 192, 0.2)',
+      //         'rgba(54, 162, 235, 0.2)',
+      //         'rgba(153, 102, 255, 0.2)',
+      //         'rgba(201, 203, 207, 0.2)',
+      //         'rgba(255, 99, 132, 0.2)',
+      //         'rgba(255, 159, 64, 0.2)',
+      //         'rgba(255, 205, 86, 0.2)',
+      //         'rgba(75, 192, 192, 0.2)',
+      //         'rgba(54, 162, 235, 0.2)',
+      //         'rgba(153, 102, 255, 0.2)',
+      //         'rgba(201, 203, 207, 0.2)',
+      //         'rgba(255, 99, 132, 0.2)',
+      //         'rgba(255, 159, 64, 0.2)',
+      //         'rgba(255, 205, 86, 0.2)',
+      //         'rgba(75, 192, 192, 0.2)',
+      //         'rgba(54, 162, 235, 0.2)',
+      //         'rgba(153, 102, 255, 0.2)',
+      //         'rgba(201, 203, 207, 0.2)',
+      //       ],
+
+      //       borderColor: [
+      //         'rgba(255, 99, 132, 0.2)',
+      //         'rgba(255, 159, 64, 0.2)',
+      //         'rgba(255, 205, 86, 0.2)',
+      //         'rgba(75, 192, 192, 0.2)',
+      //         'rgba(54, 162, 235, 0.2)',
+      //         'rgba(153, 102, 255, 0.2)',
+      //         'rgba(201, 203, 207, 0.2)',
+      //         'rgba(255, 99, 132, 0.2)',
+      //         'rgba(255, 159, 64, 0.2)',
+      //         'rgba(255, 205, 86, 0.2)',
+      //         'rgba(75, 192, 192, 0.2)',
+      //         'rgba(54, 162, 235, 0.2)',
+      //         'rgba(153, 102, 255, 0.2)',
+      //         'rgba(201, 203, 207, 0.2)',
+      //       ],
+      //       borderWidth: 1,
+      //       datalabels:{
+      //         color: ' blue',
+      //         anchor: 'end',
+      //         align: 'top',
+      //         display: true
+      //       }
+      //     },
+      //   ],
+      // }
+
+      const myChart = new Chart('myChart', {
+        type: 'horizontalBar' ,
+        plugins:[pluginDataLabels],
+        data : {
+          labels: labels,
+          // datalabels:labels,
+          datasets: [
+            {
+              // axis: 'y',
+              data: this.entry,
+              fill: false,
+              // align:'top',
+  
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+              ],
+  
+              borderColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+              ],
+              borderWidth: 1,
+              // datalabels:{
+              //   color: ' blue',
+              //   anchor: 'end',
+              //   align: 'top',
+              //   display: true
+              // }
+              datalabels:{
+                anchor: 'end',
+                align: 'end',
+                
+                padding: {right:20 } 
+              
+              }
+            },
+          ],
+        },
+       
+        options: {
+          legend: {
+            display: false,
+          },
+          // indexAxis: 'y',
+
+          // plugins:{pluginDataLabels},
+
+          scales: {
+            xAxes: [
+              {
+                position: 'top',
+                // borderDash: [8, 4],
+                // color: "#348632"
+              },
+            ],
+            yAxes: [
+              {
+                gridLines: {
+                  display: false,
+                },
+              },
+            ],
+            
+            // xAxes: [
+            //   {
+            //     position: 'top',
+            //     borderDash: [8, 4],
+            //     color: "#348632"
+            //   },
+            // ],
+            // yAxes: [
+            //   {
+            //     gridLines: {
+            //       display: false}
+            //     ],
+            // xAxes: [{
+            //   position: "top"
+            // }]
+          },
+
         },
       })
-      const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
-      api.entryTpe = this.selectedSegment
-      this.reportService.getGraphData(apiUrl).subscribe((res) => {
-        this.loadingController.dismiss()
-
-        this.totalUser = res
-        this.tableData = this.totalUser.data
-        console.log(this.tableData)
-      })
-    } else {
-      const httpParams = new HttpParams({
-        fromObject: {
-          page: '1',
-          entry_type: api.entryTpe,
-          date_range: api.date_range,
-
-          start_date: api.start_date,
-          end_date: api.end_date,
-        },
-      })
-      const apiUrl = Reports.api_url + 'gate_management/reports?' + httpParams
-      api.entryTpe = this.selectedSegment
-      this.reportService.getGraphData(apiUrl).subscribe((res) => {
-        this.loadingController.dismiss()
-
-        this.totalUser = res
-        this.tableData = this.totalUser.data
-        console.log(this.tableData)
-      })
-    }
+    })
   }
 
   checkingSegmentView() {
     if (this.selectedSegment == 'user_entry_log') {
       if (this.view == true) {
         this.userEntryTable.entryType = 'user_entry_log'
-        this.realApiTable(this.userEntryTable)
+        this.getTableData(this.userEntryTable)
+        this.dataSelected = this.userEntryTable
+        console.log(this.dataSelected)
       } else {
         this.userEntryGraph.entryType = 'user_entry_log'
-        this.realApiGraph(this.userEntryGraph)
+        this.getGraphData(this.userEntryGraph)
+        this.dataSelected = this.userEntryGraph
       }
     } else if (this.selectedSegment == 'gate_pass') {
       if (this.view == true) {
         this.gatePassTable.entryType = 'gate_pass'
-        this.realApiTable(this.gatePassTable)
+        this.getTableData(this.gatePassTable)
+        this.dataSelected = this.gatePassTable
       } else {
         this.gatePassGraph.entryType = 'gate_pass'
-        this.realApiGraph(this.gatePassGraph)
+        this.getGraphData(this.gatePassGraph)
+        this.dataSelected = this.gatePassGraph
       }
     } else {
       if (this.view == true) {
         this.visitorEntryTable.entryType = 'visitor_record'
-        this.realApiTable(this.visitorEntryTable)
+        this.getTableData(this.visitorEntryTable)
+        this.dataSelected = this.visitorEntryTable
       } else {
         this.visitorEntryGraph.entryType = 'visitor_record'
-        this.realApiGraph(this.visitorEntryGraph)
+        this.getGraphData(this.visitorEntryGraph)
+        this.dataSelected = this.visitorEntryGraph
       }
     }
   }

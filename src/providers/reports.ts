@@ -10,18 +10,31 @@ import { AppSettings } from './app-settings'
 export class Reports {
   public static api_url = AppSettings.api_url
   datarangeVal: string
+  httpParams: HttpParams
 
   constructor(public http: HttpClient) {}
 
   ngOnInit() {}
 
-  getTableData(data) {
-   
-    return this.http.get(`${data}`)
+  getTableData(params) {
+// console.log(url)
+    // const httpParams = new HttpParams({
+    //       fromObject: {
+    //         page: '1',
+    //         entry_type: url.entryTpe,
+    //         date_range: url.date_range,
+    //         start_date: url.start_date,
+    //       },
+    //     })
+
+    const apiUrl =
+    Reports.api_url + 'gate_management/reports?' + params;
+    return this.http.get(`${apiUrl}` )
   }
 
-  getGraphData(data) {
-   
-    return this.http.get(`${data}`)
+  getGraphData(params) {
+    const apiUrl =
+    Reports.api_url + 'gate_management/statistics?' + params;
+    return this.http.get(`${apiUrl}`)
   }
 }

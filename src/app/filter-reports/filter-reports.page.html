@@ -4,7 +4,7 @@
         <ion-icon name="arrow-back-outline" slot="start" color="light" size="large" (click)="dismiss()"></ion-icon>
 
         <ion-title style="color: antiquewhite; font-weight: 500;">Filter</ion-title>
-        <p slot="end" style="color: rgba(80, 77, 74, 0.801); font-size: 16px; position: relative; right: 10px; ">CLEAR FILTER</p>
+        <p slot="end" style="color: rgba(80, 77, 74, 0.801); font-size: 16px; position: relative; right: 10px; " (click)="clearfilter()">CLEAR FILTER</p>
     </ion-toolbar>
 </ion-header>
 
@@ -13,6 +13,7 @@
         <ion-title>Date Range</ion-title>
     </div>
     <div id="implementation">
+        <!-- (ngModelChange)="disableButton($event)" -->
         <ion-radio-group [(ngModel)]="user.daterange">
             <ion-row>
                 <ion-col>
@@ -40,7 +41,7 @@
         <div *ngIf="user.daterange == 'custom' ">
             <ion-item>
                 <ion-label>Start Time</ion-label>
-                <ion-datetime displayFormat="MM DD YY" [(ngModel)]="startDate"></ion-datetime>
+                <ion-datetime displayFormat="MM DD YY" [(ngModel)]="startDate"> </ion-datetime>
 
             </ion-item>
             <ion-item>
@@ -56,7 +57,9 @@
 <ion-footer lines="none">
     <ion-toolbar lines="none">
         <div style="text-align: center;">
-            <ion-button (click)="apply()" [disabled]="!user.daterange">Apply</ion-button>
+            <ion-button (click)="apply()">Apply</ion-button>
+            <!-- <ion-button (click)="apply()" [disabled]=disableButtonMode>Apply</ion-button> -->
+
         </div>
     </ion-toolbar>
 </ion-footer>

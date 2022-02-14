@@ -14,14 +14,16 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateConfigService } from './translate-config.service';
 import { DatePipe } from '@angular/common';
-
+import { Chart } from 'chart.js';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+// import {  ChartsModule } 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 @NgModule({
   declarations: [AppComponent, AnnouncePipe],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,TranslateModule.forRoot({
+  imports: [NgxDatatableModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
       useFactory: (LanguageLoader),

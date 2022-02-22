@@ -16,6 +16,7 @@ import { TranslateConfigService } from './translate-config.service';
 import { DatePipe } from '@angular/common';
 import { Chart } from 'chart.js';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxPaginationModule } from 'ngx-pagination';
 // import {  ChartsModule } 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -23,7 +24,7 @@ export function LanguageLoader(http: HttpClient) {
 @NgModule({
   declarations: [AppComponent, AnnouncePipe],
   entryComponents: [],
-  imports: [NgxDatatableModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,TranslateModule.forRoot({
+  imports: [NgxPaginationModule,NgxDatatableModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
       useFactory: (LanguageLoader),

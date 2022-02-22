@@ -23,13 +23,19 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <h1 *ngIf="view == true">Table View</h1>
-    <h1 *ngIf="view == false">Graph View</h1>
+
+    <!-- <h1 *ngIf="view == true">Table View</h1>
+    <h1 *ngIf="view == false">Graph View</h1> -->
 
 
     <ion-item lines="none">
 
-        <ion-toggle [(ngModel)]="view" (ionChange)="onChangeView()"></ion-toggle>
+
+        <label class="toggle">
+            <input type="checkbox" [(ngModel)]="view"  (ngModelChange)="onChangeView()">
+            <span class="slider"></span>
+            <span class="labels" data-on="Graph View" data-off="Table View"  ></span>
+          </label>
         <ion-item lines="none" slot="end">
             <ion-icon slot="end" name="filter-circle-outline" size="large" (click)="presentModal()"></ion-icon>
         </ion-item>
@@ -37,8 +43,99 @@
     </ion-item>
     <div *ngIf="selectedSegment == 'user_entry_log'">
 
-        <div *ngIf="view == true" id="tableView">
 
+        <div *ngIf="view == false" id="tableView">
+
+            <ion-scroll scrollX="true">
+                <div class="table-wrapper">
+                    <div class="table-scroller">
+                        <table class="table-table">
+                            <div style="word-wrap: break-word;">
+                                <thead>
+                                    <tr>
+
+
+                                        <th class="table-sticky-col">S No</th>
+                                        <th class="table-sticky-col2">Username</th>
+                                        <th>Date & Time</th>
+                                        <th>Batch / Department</th>
+                                        <th>User Type</th>
+
+                                    </tr>
+                                </thead>
+
+
+
+                                <tbody>
+
+                                    <tr *ngFor="let user of tableData; let i = index  ">
+                                        <td class="table-sticky-col">{{i+1}}</td>
+                                        <td class="table-sticky-col2">{{user.user_name}}</td>
+                                        <td>{{user.created_at}}</td>
+                                        <td>{{user.batch_or_department}}</td>
+                                        <td>{{user.user_type}}</td>
+
+                                    </tr>
+
+
+                                </tbody>
+
+                            </div>
+
+                        </table>
+
+                    </div>
+                    <!-- <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
+                    <!-- <pagination-controls (pageChange)="cp = $event"></pagination-controls> -->
+                    <!-- <div class="pagination">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div> -->
+
+
+                    <div class="center">
+                        <div class="pagination">
+                            <a (click)="prev()">&laquo;</a>
+                            <a (click)="one()">1</a>
+                            <a (click)="two()">2</a>
+                            <a (click)="three()">3</a>
+                            <a (click)="four()">4</a>
+                            <a (click)="five()">5</a>
+                            <a (click)="nxt()">&raquo;</a>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
+            </ion-scroll>
+        </div>
+        <div *ngIf="isShown" class="tableNoData" id="divshow">
+            <h1>No Table Data</h1>
+
+        </div>
+
+
+        <div *ngIf="view == true" id="graphView">
+
+            <div class="ion-padding">
+
+                <div id="divChart">
+                    <canvas id="myChart" width="600px" height="1020px"></canvas>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isShown2" class="tableNoData" id="divshow2">
+            <h1>No Graph Data</h1>
+
+        </div>
+    </div>
+
+
+
+
+    <div *ngIf="selectedSegment == 'gate_pass'">
+
+
+        <div *ngIf="view == false" id="tableView">
 
             <div class="table-wrapper">
                 <div class="table-scroller">
@@ -73,119 +170,108 @@
 
                     </table>
                 </div>
-            </div>
-
-
-        </div>
-
-        <div *ngIf="view == false" id="graphView">
-
-            <div class="ion-padding">
-
-                <div id="divChart">
-                    <canvas id="myChart" width="600px" height="1020px"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div *ngIf="selectedSegment == 'gate_pass'">
-
-        <div class="ion-padding">
-            <div *ngIf="view == true" id="tableView">
-                <div class="table-wrapper">
-                    <div class="table-scroller">
-                        <table class="table-table">
-                            <thead>
-                                <tr>
-
-
-                                    <th class="table-sticky-col">S No</th>
-                                    <th class="table-sticky-col2">Username</th>
-                                    <th>Date & Time</th>
-                                    <th>Batch / Department</th>
-                                    <th>User Type</th>
-
-                                </tr>
-                            </thead>
-
-
-
-                            <tbody>
-                                <tr *ngFor="let user of tableData; let i = index">
-                                    <td class="table-sticky-col">{{i+1}}</td>
-                                    <td class="table-sticky-col2">{{user.user_name}}</td>
-                                    <td>{{user.created_at}}</td>
-                                    <td>{{user.batch_or_department}}</td>
-                                    <td>{{user.user_type}}</td>
-                                </tr>
-
-                            </tbody>
-
-
-
-                        </table>
+                <div class="center">
+                    <div class="center">
+                        <div class="pagination">
+                            <a (click)="prev()">&laquo;</a>
+                            <a (click)="one()">1</a>
+                            <a (click)="two()">2</a>
+                            <a (click)="three()">3</a>
+                            <a (click)="four()">4</a>
+                            <a (click)="five()">5</a>
+                            <a (click)="nxt()">&raquo;</a>
+                        </div>
                     </div>
                 </div>
+
             </div>
-            <div *ngIf="view == false" id="graphView">
-                <div id="divChart">
-                    <canvas id="myChart" width="600px" height="1020px"></canvas>
-                </div>
+        </div>
+        <div *ngIf="isShown" class="tableNoData" id="divshow">
+            <h1>No Table Data</h1>
+
+        </div>
+        <div *ngIf="view == false" id="graphView">
+            <div id="divChart">
+                <canvas id="myChart" width="600px" height="1020px"></canvas>
             </div>
+        </div>
+        <div *ngIf="isShown2" class="tableNoData" id="divshow2">
+            <h1>No Graph Data</h1>
+
         </div>
 
     </div>
     <div *ngIf="selectedSegment == 'visitor_record'">
 
 
-        <div class="ion-padding">
-            <div *ngIf="view == true" id="tableView">
-                <div class="table-wrapper">
-                    <div class="table-scroller">
-                        <table class="table-table">
-                            <thead>
-                                <tr>
+
+        <div *ngIf="view == false" id="tableView">
+            <div class="table-wrapper">
+                <div class="table-scroller">
+                    <table class="table-table">
+                        <thead>
+                            <tr>
 
 
-                                    <th class="table-sticky-col">S No</th>
-                                    <th class="table-sticky-col2">Username</th>
-                                    <th>Date & Time</th>
-                                    <th>Batch / Department</th>
-                                    <th>User Type</th>
+                                <th class="table-sticky-col">S No</th>
+                                <th class="table-sticky-col2">Username</th>
+                                <th>Date & Time</th>
+                                <th>Batch / Department</th>
+                                <th>User Type</th>
 
-                                </tr>
-                            </thead>
-
-
-
-                            <tbody>
-                                <tr *ngFor="let user of tableData; let i = index">
-                                    <td class="table-sticky-col">{{i+1}}</td>
-                                    <td class="table-sticky-col2">{{user.visitor_name}}</td>
-                                    <td>{{user.created_at}}</td>
-                                    <td>{{user.status_updated_by}}</td>
-                                    <td>{{user.employee_number}}</td>
-                                </tr>
-
-                            </tbody>
+                            </tr>
+                        </thead>
 
 
 
-                        </table>
+                        <tbody>
+                            <tr *ngFor="let user of tableData; let i = index">
+                                <td class="table-sticky-col">{{i+1}}</td>
+                                <td class="table-sticky-col2">{{user.visitor_name}}</td>
+                                <td>{{user.created_at}}</td>
+                                <td>{{user.status_updated_by}}</td>
+                                <td>{{user.employee_number}}</td>
+                            </tr>
+
+                        </tbody>
+
+
+
+                    </table>
+                </div>
+                <div class="center">
+                    <div class="center">
+                        <div class="pagination">
+                            <a (click)="prev()">&laquo;</a>
+                            <a (click)="one()">1</a>
+                            <a (click)="two()">2</a>
+                            <a (click)="three()">3</a>
+                            <a (click)="four()">4</a>
+                            <a (click)="five()">5</a>
+                            <a (click)="nxt()">&raquo;</a>
+                        </div>
                     </div>
                 </div>
+
             </div>
-            <div *ngIf="view == false" id="graphView">
-                <div id="divChart">
-                    <canvas id="myChart" width="600px" height="1020px"></canvas>
-                </div>
+        </div>
+        <div *ngIf="isShown" class="tableNoData" id="divshow">
+            <h1>No Table Data</h1>
+
+        </div>
+        <div *ngIf="view == false" id="graphView">
+            <div id="divChart">
+                <canvas id="myChart" width="600px" height="1020px"></canvas>
             </div>
+        </div>
+        <div *ngIf="isShown2" class="tableNoData" id="divshow2">
+            <h1>No Graph Data</h1>
+
         </div>
 
 
+
     </div>
+
+
 </ion-content>

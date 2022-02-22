@@ -8,9 +8,10 @@ import { ReportsPageRoutingModule } from './reports-routing.module';
 
 import { ReportsPage } from './reports.page';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  imports: [ NgxDatatableModule,
+  imports: [ NgxDatatableModule,NgxPaginationModule,
     CommonModule,
     FormsModule,
     IonicModule,
